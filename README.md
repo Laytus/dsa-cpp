@@ -24,7 +24,7 @@ The plan is organized in 4 phases, each building on the previous:
 | 3 | Sorting, dynamic programming, greedy algorithms, shortest paths, backtracking | Weeks 8–12 |
 | 4 | Interview preparation, mock interviews, problem review | Weeks 13–15 |
 
-Full plan with chapters, exercises, and support materials: [`study-plan.md`](study-plan.md)
+Full plan with chapters, exercises, and support materials: [`dsa-study-plan.md`](notes/general/study-plan.md)
 
 ---
 
