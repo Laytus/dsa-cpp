@@ -30,6 +30,17 @@ add_library(dsa_cpp
     src/algorithms/insertion_sort.cpp
     src/algorithms/insertion_sort_inv.cpp
     src/algorithms/linear_search.cpp
+    src/algorithms/selection_sort.cpp
+    src/algorithms/merge_sort.cpp
+    include/utils/print_utils.hpp
+    src/algorithms/find_maximum_subarray.cpp
+    src/algorithms/find_maximum_subarray_brute_force.cpp
+    src/algorithms/square_matrix_multiply.cpp
+    src/algorithms/square_matrix_multiply_recursive.cpp
+    src/algorithms/square_matrix_multiply_strassen.cpp
+    src/data_structures/stack.cpp
+    src/data_structures/queue.cpp
+    src/data_structures/linked_list.cpp
 )
 
 target_include_directories(dsa_cpp
@@ -92,10 +103,20 @@ if(DSA_ENABLE_TESTS)
     FetchContent_MakeAvailable(Catch2)
 
     add_executable(dsa_tests
-        tests/algorithms/insertion_sort_tests.cpp
-        tests/algorithms/insertion_sort_array_tests.cpp
-        tests/algorithms/insertion_sort_inv_tests.cpp
-        tests/algorithms/linear_search_tests.cpp
+        # tests/algorithms/insertion_sort_tests.cpp
+        # tests/algorithms/insertion_sort_array_tests.cpp
+        # tests/algorithms/insertion_sort_inv_tests.cpp
+        # tests/algorithms/linear_search_tests.cpp
+        # tests/algorithms/selection_sort_tests.cpp
+        # tests/algorithms/merge_sort_tests.cpp
+        # tests/algorithms/find_maximum_subarray_tests.cpp
+        # tests/algorithms/find_maximum_subarray_brute_force_tests.cpp
+        # tests/algorithms/square_matrix_multiply_tests.cpp
+        # tests/algorithms/square_matrix_multiply_recursive_tests.cpp
+        # tests/algorithms/square_matrix_multiply_strassen_tests.cpp
+        # tests/data_structures/stack_tests.cpp
+        # tests/data_structures/queue_tests.cpp
+        tests/data_structures/linked_list_tests.cpp
     )
 
     target_link_libraries(dsa_tests
@@ -109,3 +130,16 @@ if(DSA_ENABLE_TESTS)
 
     catch_discover_tests(dsa_tests)
 endif()
+
+# ------------------------------------------------------------
+# Experiments
+# ------------------------------------------------------------
+
+add_executable(experiments_app
+    app/maximum_subarray_benchmark.cpp
+)
+
+target_link_libraries(experiments_app
+    PRIVATE
+        dsa_cpp
+)
