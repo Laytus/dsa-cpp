@@ -43,13 +43,13 @@ Complete guide to build solid foundations in Data Structures & Algorithms, orien
 - [x] **Ch. 1** — The Role of Algorithms in Computing  
   Quick reading. Establishes the vocabulary of the book.
 
-- [ ] **Ch. 2** — Getting Started  
+- [x] **Ch. 2** — Getting Started  
   Insertion sort, merge sort, loop invariants. First real implementation in C++.
 
-- [ ] **Ch. 3** — Characterizing Running Times  
+- [x] **Ch. 3** — Characterizing Running Times  
   Big O, Θ, Ω. Foundation of all complexity analysis.
 
-- [ ] **Ch. 4** — Divide-and-Conquer *(sections 4.1–4.2 only)*  
+- [x] **Ch. 4** — Divide-and-Conquer *(sections 4.1–4.5 only)*  
   Recurrences and recursion tree.
 
 - [ ] **Ch. 10** — Elementary Data Structures  
