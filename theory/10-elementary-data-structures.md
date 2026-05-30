@@ -70,3 +70,66 @@
 
 - Data structure in which the objects are arranged in a linear order.
 - The order is determined by a pointer in each object.
+
+---
+
+## 3. Implementing pointers and objects
+
+### A multiple-array representation of objects
+
+- Three *arrays*
+- Each on corresponds to: `next`, `key` and `prev`
+- One *variable* contains the `NIL` object
+
+### A single-array representing of objects
+
+- One single array where objects are stored one after the other
+- The memory is located as "`pointer` + `offset`"
+
+### Allocating and freeing objects
+
+==garbage collector==
+
+- `free list`
+
+`ALLOCATE-OBJECT()`
+```
+if free == NIL
+    error "out of space"
+else x = free
+    free = x.next
+    return x
+```
+
+`FREE-OBJECT()`
+```
+x.next = free
+free = x
+```
+
+- We can service several linked lists with just a single free list
+
+---
+
+## 4. Representing rooted trees
+
+### Binary trees
+
+- `p`: parent
+- `left`: left child
+- `right`: right child
+
+- If `x.p` = `NIL` --> `x` is the root
+- If node `x` has no left/right child --> `x.left`/`x.right` = `NIL`
+
+- `T.root`: the root of the entire tree `T`
+- If `T.root` = `NIL` --> he tree is empty
+
+### Rooted trees with unbounded branching
+
+- `x.p`: parent
+- `x.left-child`: points to the leftmost child of node `x`
+- `x.right-sibling`: points to the sibling of `x` immediately to its right
+
+- If `x` has no children --> `x.left-child` = `NIL`
+- If `x` is the rightmost child of its parent --> `x.right-sibling` = `NIL`

@@ -10,17 +10,17 @@ struct Node {
     Node* next;
 };
 
-class LinkedList {
+class CircularLinkedList {
 public:
-    LinkedList();
+    CircularLinkedList();
 
-    ~LinkedList();
+    ~CircularLinkedList();
 
-    LinkedList(const LinkedList& other);
-    LinkedList& operator=(const LinkedList& other);
+    CircularLinkedList(const CircularLinkedList& other);
+    CircularLinkedList& operator=(const CircularLinkedList& other);
 
-    LinkedList(LinkedList&& other) noexcept;
-    LinkedList& operator=(LinkedList&& other) noexcept;
+    CircularLinkedList(CircularLinkedList&& other) noexcept;
+    CircularLinkedList& operator=(CircularLinkedList&& other) noexcept;
 
     Node* list_search(const int key);
     void push_front(int key);
@@ -38,8 +38,9 @@ private:
     void list_insert(Node* x);
     void list_delete(Node* x);
     
-    Node* head_;
-    Node* tail_;
+    // Node* head_;
+    // Node* tail_;
+    Node* nil_;
     std::size_t size_;
 };
 

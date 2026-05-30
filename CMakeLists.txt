@@ -41,6 +41,9 @@ add_library(dsa_cpp
     src/data_structures/stack.cpp
     src/data_structures/queue.cpp
     src/data_structures/linked_list.cpp
+    src/data_structures/circular_linked_list.cpp
+    src/data_structures/direct_access_table.cpp
+    src/data_structures/static_hash_chained_table.cpp
 )
 
 target_include_directories(dsa_cpp
@@ -114,9 +117,12 @@ if(DSA_ENABLE_TESTS)
         # tests/algorithms/square_matrix_multiply_tests.cpp
         # tests/algorithms/square_matrix_multiply_recursive_tests.cpp
         # tests/algorithms/square_matrix_multiply_strassen_tests.cpp
-        # tests/data_structures/stack_tests.cpp
-        # tests/data_structures/queue_tests.cpp
+        tests/data_structures/stack_tests.cpp
+        tests/data_structures/queue_tests.cpp
         tests/data_structures/linked_list_tests.cpp
+        tests/data_structures/circular_linked_list_tests.cpp
+        tests/data_structures/direct_access_table_tests.cpp
+        tests/data_structures/static_hash_chained_table_tests.cpp
     )
 
     target_link_libraries(dsa_tests

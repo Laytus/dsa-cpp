@@ -175,4 +175,9 @@ void LinkedList::push_front(int key) {
     list_insert(new_node);
 }
 
+void LinkedList::remove(int key) {
+    Node* x = list_search(key);
+    list_delete(x);
+}
+
 }  // namespace dsa::data_structures
