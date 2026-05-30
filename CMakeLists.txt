@@ -145,11 +145,12 @@ endif()
 # Experiments
 # ------------------------------------------------------------
 
-add_executable(experiments_app
-    app/maximum_subarray_benchmark.cpp
+add_executable(dsa_experiments
+    # experiments/algorithms/maximum_subarray_benchmark.cpp
+    experiments/data_structures/stl_hash_examples.cpp
 )
 
-target_link_libraries(experiments_app
+target_link_libraries(dsa_experiments
     PRIVATE
         dsa_cpp
 )

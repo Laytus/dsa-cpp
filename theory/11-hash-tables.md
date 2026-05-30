@@ -288,3 +288,219 @@ $$
 ## 4. Open addressing
 
 - All elements occupy the hash table itself.
+
+---
+
+---
+
+## C++ STL hash-based containers
+
+C++ provides hash-table-based containers in the Standard Template Library (STL):
+
+```cpp
+#include <unordered_set>
+#include <unordered_map>
+```
+
+These containers are called `unordered` because they do not maintain their elements in sorted order. Internally, they organize elements using hashing.
+
+### `std::unordered_set`
+
+`std::unordered_set<T>` stores unique keys of type `T`.
+
+It is useful when we only need to know whether a key exists in the set.
+
+```cpp
+#include <unordered_set>
+
+std::unordered_set<std::size_t> keys;
+
+keys.insert(8);
+keys.insert(14);
+keys.insert(25);
+
+bool has_14 = keys.contains(14);
+
+keys.erase(14);
+```
+
+Conceptually, this is similar to a hash table that supports:
+
+```text
+insert(key)
+search(key)
+delete(key)
+```
+
+It stores the key itself, without an associated value.
+
+Average-case running times:
+
+- `insert`: $O(1)$
+- `contains` / `find`: $O(1)$
+- `erase`: $O(1)$
+
+Worst-case running times can degrade to $O(n)$ if many keys collide.
+
+### `std::unordered_map`
+
+`std::unordered_map<Key, Value>` stores key-value pairs.
+
+It is useful when a key is associated with some data.
+
+```cpp
+#include <unordered_map>
+#include <string>
+
+std::unordered_map<std::size_t, std::string> names;
+
+names[8] = "eight";
+names[14] = "fourteen";
+names[25] = "twenty-five";
+
+std::string value = names.at(14);
+
+names.erase(14);
+```
+
+Here:
+
+```text
+key   = std::size_t
+value = std::string
+```
+
+Conceptually:
+
+```text
+8  -> "eight"
+14 -> "fourteen"
+25 -> "twenty-five"
+```
+
+This is similar to a dictionary or map implemented with hashing.
+
+Average-case running times:
+
+- `insert`: $O(1)$
+- `operator[]`: $O(1)$ average access/insertion
+- `at`: $O(1)$ average access
+- `contains` / `find`: $O(1)$
+- `erase`: $O(1)$
+
+Worst-case running times can degrade to $O(n)$.
+
+### `find`, `contains`, and iterators
+
+Since C++20, we can use `contains`:
+
+```cpp
+if (keys.contains(14)) {
+    // key exists
+}
+```
+
+A more general approach is `find`:
+
+```cpp
+auto it = names.find(14);
+
+if (it != names.end()) {
+    std::size_t key = it->first;
+    std::string value = it->second;
+}
+```
+
+For `std::unordered_map`, each iterator points to a key-value pair:
+
+```cpp
+it->first   // key
+it->second  // value
+```
+
+For `std::unordered_set`, each iterator points directly to a key.
+
+### Load factor and buckets
+
+The STL exposes some hash-table-related information:
+
+```cpp
+std::unordered_set<std::size_t> keys;
+
+keys.insert(8);
+keys.insert(14);
+keys.insert(25);
+
+float alpha = keys.load_factor();
+std::size_t buckets = keys.bucket_count();
+```
+
+The load factor corresponds to the CLRS concept:
+
+$$
+\alpha = n / m
+$$
+
+where:
+
+- $n$ is the number of stored elements.
+- $m$ is the number of buckets.
+
+In STL terms:
+
+```text
+n = container.size()
+m = container.bucket_count()
+```
+
+A larger load factor generally means more expected collisions.
+
+The container can automatically increase the number of buckets through rehashing.
+
+### Relation with CLRS hash tables
+
+The STL containers are practical implementations of the same general ideas studied in CLRS:
+
+- A key is transformed by a hash function.
+- The hash value determines where the element is stored.
+- Collisions must be resolved internally.
+- Operations are expected $O(1)$ under good hashing assumptions.
+
+However, the STL abstracts away most implementation details. We normally do not directly manage:
+
+- the hash table array,
+- collision chains,
+- probing sequences,
+- sentinel states,
+- deleted markers,
+- manual resizing.
+
+For example:
+
+```cpp
+std::unordered_set<std::size_t> set;
+std::unordered_map<std::size_t, std::string> map;
+```
+
+are the high-level STL equivalents of hash-based dictionaries.
+
+### When to use each container
+
+Use `std::unordered_set` when the key itself is the stored data:
+
+```cpp
+std::unordered_set<std::size_t> visited_nodes;
+```
+
+Use `std::unordered_map` when each key has associated data:
+
+```cpp
+std::unordered_map<std::size_t, std::string> student_names;
+```
+
+Summary:
+
+| Container | Stores | Example use case |
+|---|---|---|
+| `std::unordered_set<T>` | unique keys | checking whether an ID exists |
+| `std::unordered_map<K, V>` | key-value pairs | mapping an ID to an object or value |

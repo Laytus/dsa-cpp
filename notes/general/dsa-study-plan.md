@@ -52,10 +52,10 @@ Complete guide to build solid foundations in Data Structures & Algorithms, orien
 - [x] **Ch. 4** — Divide-and-Conquer *(sections 4.1–4.5 only)*  
   Recurrences and recursion tree.
 
-- [ ] **Ch. 10** — Elementary Data Structures  
+- [x] **Ch. 10** — Elementary Data Structures  
   Arrays, linked lists, stacks, queues. Implement each one from scratch in C++.
 
-- [ ] **Ch. 11** — Hash Tables  
+- [x] **Ch. 11** — Hash Tables  
   Hashing, chaining, open addressing. Also use STL: `unordered_map`, `unordered_set`.
 
 ### Patterns / techniques not in CLRS `[pattern]`
