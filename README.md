@@ -7,9 +7,9 @@
 
 ## Overview
 
-This repository documents my systematic study of Data Structures and Algorithms in C++, built around a structured 4-phase plan designed to reach a level suitable for software engineering and quant dev interviews.
+This repository documents my systematic study of Data Structures and Algorithms in C++, with focus on implementing core CLRS algorithms and data structures from scratch in modern C++ and applying them to interview-style problems.
 
-The study plan is grounded in rigorous theory and intensive practice from day one — not sequential, but parallel: every concept studied is immediately implemented and applied to real problems.
+The goal is to combine rigorous theory with practical implementation: each concept studied is implemented, tested, and later applied to NeetCode-style problems and experiments.
 
 ---
 
@@ -39,46 +39,91 @@ Full plan with chapters, exercises, and support materials: [`dsa-study-plan.md`]
 
 ## Repository Structure
 
-```
+```text
 dsa-cpp/
-├── README.md
-├── study-plan.md           ← full phase-by-phase plan with chapters and exercises
-├── theory/                 ← notes per topic, following CLRS chapter order
-│   ├── 01-complexity/
-│   ├── 02-arrays-strings/
-│   └── ...
-├── include/                ← header files for data structure implementations
-│   ├── linked_list.hpp
-│   └── ...
-├── src/                    ← C++ implementations from scratch
-│   ├── linked_list.cpp
-│   └── ...
 ├── app/
-│   ├── main.cpp
-│   └── test_runner.cpp
-└── problems/               ← LeetCode solutions, organized by topic
-    ├── arrays/
-    │   ├── two-sum.cpp
-    │   └── two-sum.md      ← approach + complexity notes
-    ├── trees/
-    ├── graphs/
-    ├── dynamic-programming/
-    └── ...
+│   ├── main.cpp                 # General entry point
+│   ├── exercise_runner.cpp      # Sandbox for quick problem-solving experiments
+│   ├── experiment_runner.cpp    # Runs custom algorithm/data structure experiments
+│   └── problem_runner.cpp       # Runs selected NeetCode-style solutions
+│
+├── include/
+│   ├── algorithms/              # Algorithm headers
+│   ├── data_structures/         # Data structure headers
+│   └── utils/                   # Shared utilities
+│
+├── src/
+│   ├── algorithms/              # Algorithm implementations
+│   └── data_structures/         # Data structure implementations
+│
+├── tests/
+│   ├── algorithms/              # Unit tests for algorithms
+│   └── data_structures/         # Unit tests for data structures
+│
+├── experiments/                 # Exploratory programs, STL comparisons, and benchmarks
+├── problems/                    # NeetCode / interview-style problems and notes
+├── theory/                      # Topic notes and patterns
+├── notes/
+│   └── general/
+│       └── dsa-study-plan.md    # Main study plan
+│
+├── CMakeLists.txt
+└── README.md
 ```
 
-Each problem in `problems/` has two files: the `.cpp` solution and a `.md` file documenting the approach, time complexity, space complexity, and pattern used.
+---
+
+## Project Components
+
+- `include/` and `src/` contain the core CLRS-style implementations.
+- `tests/` contains unit tests for correctness.
+- `experiments/` contains exploratory programs used to compare custom implementations with STL containers or benchmark behavior.
+- `problems/` contains NeetCode-style solutions and notes.
+- `theory/` contains topic notes and reusable problem-solving patterns.
+- `app/` contains runner files used to execute experiments, problems, or sandbox code.
+
+---
+
+## Build and Test
+
+```bash
+cmake -S . -B build -DDSA_ENABLE_TESTS=ON
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+
+---
+
+## Runners
+
+- `main.cpp`: general executable entry point.
+- `exercise_runner.cpp`: sandbox for quickly testing ideas and problem-solving snippets.
+- `experiment_runner.cpp`: runs experiment files from `experiments/`.
+- `problem_runner.cpp`: runs selected NeetCode-style solutions from `problems/`.
+
+---
+
+## Implementation Philosophy
+
+- Implement core algorithms and data structures from scratch before relying on STL equivalents.
+- Keep implementations close to CLRS pseudocode when useful, while writing idiomatic modern C++.
+- Write tests for each implementation.
+- Use experiments to compare custom implementations with STL behavior or to benchmark performance.
+- Prioritize correctness and clarity before optimization.
 
 ---
 
 ## Problem Notes Format
 
+Each problem in `problems/` can include a `.cpp` solution and a `.md` file documenting the approach, time complexity, space complexity, and pattern used.
+
 ```markdown
 ## Problem Name
 
-**Approach:** brief description of the strategy used
-**Time complexity:** O(...)
-**Space complexity:** O(...)
-**Pattern:** e.g. Two Pointers / Sliding Window / BFS / DP
+**Approach:** brief description of the strategy used  
+**Time complexity:** O(...)  
+**Space complexity:** O(...)  
+**Pattern:** e.g. Two Pointers / Sliding Window / BFS / DP  
 **Difficulty:** Easy / Medium / Hard
 ```
 
@@ -86,6 +131,4 @@ Each problem in `problems/` has two files: the `.cpp` solution and a `.md` file 
 
 ## Background
 
-I hold a degree in Mechanical Civil Engineering with a minor in Mechatronics from Pontificia Universidad Católica de Chile, and a Diplôme d'Ingénieur Généraliste from École Centrale de Lyon. I completed a 6-month internship at Capital Fund Management (Paris), where I worked on internal tooling and market data infrastructure.
-
-This repository is part of a broader preparation plan for software engineering and quant dev roles, which also includes applied mathematics and quantitative finance study.
+This repository is part of my preparation for software engineering and quant developer roles, with an emphasis on rigorous algorithmic foundations, modern C++, and interview problem solving.
