@@ -27,12 +27,12 @@ option(DSA_ENABLE_TESTS "Enable unit tests" OFF)
 # ------------------------------------------------------------
 
 add_library(dsa_cpp
-    src/algorithms/insertion_sort.cpp
+    # src/algorithms/insertion_sort.cpp
     src/algorithms/insertion_sort_inv.cpp
     src/algorithms/linear_search.cpp
     src/algorithms/selection_sort.cpp
     src/algorithms/merge_sort.cpp
-    include/utils/print_utils.hpp
+    # include/utils/print_utils.hpp
     src/algorithms/find_maximum_subarray.cpp
     src/algorithms/find_maximum_subarray_brute_force.cpp
     src/algorithms/square_matrix_multiply.cpp
@@ -46,6 +46,20 @@ add_library(dsa_cpp
     src/data_structures/static_hash_chained_table.cpp
     src/data_structures/universal_hash_chained_table.cpp
     src/data_structures/open_addressing_hash_table.cpp
+    src/algorithms/heap_sort.cpp
+    src/data_structures/max_priority_queue.cpp
+    src/data_structures/min_priority_queue.cpp
+    src/algorithms/quick_sort.cpp
+    src/algorithms/counting_sort.cpp
+    src/algorithms/radix_sort.cpp
+    src/algorithms/bucket_sort.cpp
+    src/algorithms/randomized_select.cpp
+    src/algorithms/select.cpp
+    src/data_structures/binary_search_tree.cpp
+    src/data_structures/red_black_tree.cpp
+    src/data_structures/order_statistic_tree.cpp
+    src/data_structures/interval_tree.cpp
+    src/data_structures/disjoint_set_forest.cpp
 )
 
 target_include_directories(dsa_cpp
@@ -126,7 +140,21 @@ if(DSA_ENABLE_TESTS)
         # tests/data_structures/direct_access_table_tests.cpp
         # tests/data_structures/static_hash_chained_table_tests.cpp
         # tests/data_structures/universal_hash_chained_table_tests.cpp
-        tests/data_structures/open_addressing_hash_table_tests.cpp
+        # tests/data_structures/open_addressing_hash_table_tests.cpp
+        # tests/algorithms/heap_sort_tests.cpp
+        # tests/data_structures/max_priority_queue_tests.cpp
+        # tests/algorithms/quick_sort_tests.cpp
+        # tests/algorithms/counting_sort_tests.cpp
+        # tests/algorithms/radix_sort_tests.cpp
+        # tests/algorithms/bucket_sort_tests.cpp
+        # tests/algorithms/minimum_maximum_tests.cpp
+        # tests/algorithms/randomized_select_tests.cpp
+        # tests/algorithms/select_tests.cpp
+        # tests/data_structures/binary_search_tree_tests.cpp
+        # tests/data_structures/red_black_tree_tests.cpp
+        # tests/data_structures/order_statistic_tree_tests.cpp
+        # tests/data_structures/interval_tree_tests.cpp
+        tests/data_structures/disjoint_set_forest_tests.cpp
     )
 
     target_link_libraries(dsa_tests
@@ -146,11 +174,44 @@ endif()
 # ------------------------------------------------------------
 
 add_executable(dsa_experiments
-    # experiments/algorithms/maximum_subarray_benchmark.cpp
+    app/experiment_runner.cpp
+    experiments/algorithms/maximum_subarray_benchmark.cpp
     experiments/data_structures/stl_hash_examples.cpp
+    experiments/data_structures/stl_priority_queue_examples.cpp
+    experiments/data_structures/stl_tree_examples.cpp
 )
 
 target_link_libraries(dsa_experiments
+    PRIVATE
+        dsa_cpp
+)
+
+# ------------------------------------------------------------
+# Problems
+# ------------------------------------------------------------
+
+add_executable(dsa_problems
+    app/problem_runner.cpp
+    problems/arrays_and_hashing/1.contains_duplicate/solution.cpp
+    # problems/arrays_and_hashing/2.valid_anagram/solution.cpp
+    # problems/arrays_and_hashing/3.two_sums/solution.cpp
+    # problems/arrays_and_hashing/4.group_anagrams/solution.cpp
+)
+
+target_link_libraries(dsa_problems
+    PRIVATE
+        dsa_cpp
+)
+
+# ------------------------------------------------------------
+# Exercises
+# ------------------------------------------------------------
+
+add_executable(dsa_exercises
+    app/exercise_runner.cpp
+)
+
+target_link_libraries(dsa_exercises
     PRIVATE
         dsa_cpp
 )
