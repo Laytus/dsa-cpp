@@ -215,23 +215,23 @@ Source for all: [Neetcode.io](https://neetcode.io) + NeetCode YouTube channel.
 
 ### CLRS `[impl]`
 
-- [ ] **Ch. 14** — Dynamic Programming ⚠️  
+- [x] **Ch. 14** — Dynamic Programming ⚠️  
   Rod cutting, LCS, matrix chain. The most important chapter of the book.  
   Complement it mandatorily with audiovisual material (see support section).
 
-- [ ] **Ch. 15** — Greedy Algorithms  
+- [x] **Ch. 15** — Greedy Algorithms  
   Activity selection, Huffman coding. Implement and compare with DP equivalents.
 
-- [ ] **Ch. 20** — Elementary Graph Algorithms  
+- [x] **Ch. 20** — Elementary Graph Algorithms  
   BFS, DFS, topological sorting, strongly connected components. Implement using adjacency lists.
+
+- [x] **Ch. 21** — Minimum Spanning Trees  
+  Kruskal and Prim conceptually. Understand the proof of correctness. Do not implement from scratch.
 
 - [ ] **Ch. 22** — Single-Source Shortest Paths  
   Dijkstra and Bellman-Ford. Implement Dijkstra with `priority_queue` in C++.
 
 ### CLRS `[theory]`
-
-- [ ] **Ch. 21** — Minimum Spanning Trees  
-  Kruskal and Prim conceptually. Understand the proof of correctness. Do not implement from scratch.
 
 - [ ] **Ch. 23** — All-Pairs Shortest Paths *(secs. 23.1–23.2)*  
   Floyd-Warshall and Johnson. Understand the logic and complexity. Do not implement.
@@ -239,24 +239,24 @@ Source for all: [Neetcode.io](https://neetcode.io) + NeetCode YouTube channel.
 ### LeetCode exercises `[LC]`
 
 **Sorting** — Extra LeetCode
-- Sort Colors (LC 75)
-- Merge Intervals (LC 56)
-- Insert Interval (LC 57)
-- Largest Number (LC 179)
+- [ ] Sort Colors (LC 75)
+- [ ] Merge Intervals (LC 56)
+- [ ] Insert Interval (LC 57)
+- [ ] Largest Number (LC 179)
 
 **Intervals** — Neetcode 150 (5 problems)
-- Insert Interval
-- Merge Intervals
-- Non-overlapping Intervals
-- Meeting Rooms I
-- Meeting Rooms II
-- Minimum Interval to Include Each Query
+- [ ] Insert Interval
+- [ ] Merge Intervals
+- [ ] Non-overlapping Intervals
+- [ ] Meeting Rooms I
+- [ ] Meeting Rooms II
+- [ ] Minimum Interval to Include Each Query
 
 **Greedy** — Extra LeetCode
-- Jump Game (LC 55)
-- Jump Game II (LC 45)
-- Gas Station (LC 134)
-- Hand of Straights (LC 846)
+- [ ] Jump Game (LC 55)
+- [ ] Jump Game II (LC 45)
+- [ ] Gas Station (LC 134)
+- [ ] Hand of Straights (LC 846)
 
 **Graphs — BFS/DFS** — Neetcode 150 (13 problems)
 - [ ] Number of Islands
@@ -274,50 +274,50 @@ Source for all: [Neetcode.io](https://neetcode.io) + NeetCode YouTube channel.
 - [ ] Word Ladder
 
 **1-D Dynamic Programming** ⚠️ — Neetcode 150 (12 problems)
-- Climbing Stairs
-- Min Cost Climbing Stairs
-- House Robber
-- House Robber II
-- Longest Palindromic Substring
-- Palindromic Substrings
-- Decode Ways
-- Coin Change
-- Maximum Product Subarray
-- Word Break
-- Longest Increasing Subsequence
-- Partition Equal Subset Sum
+- [ ] Climbing Stairs
+- [ ] Min Cost Climbing Stairs
+- [ ] House Robber
+- [ ] House Robber II
+- [ ] Longest Palindromic Substring
+- [ ] Palindromic Substrings
+- [ ] Decode Ways
+- [ ] Coin Change
+- [ ] Maximum Product Subarray
+- [ ] Word Break
+- [ ] Longest Increasing Subsequence
+- [ ] Partition Equal Subset Sum
 
 **2-D Dynamic Programming** ⚠️ — Neetcode 150 (11 problems)
-- Unique Paths
-- Longest Common Subsequence
-- Best Time to Buy and Sell Stock with Cooldown
-- Coin Change II
-- Target Sum
-- Interleaving String
-- Longest Increasing Path in a Matrix
-- Distinct Subsequences
-- Edit Distance
-- Burst Balloons
-- Regular Expression Matching
+- [ ] Unique Paths
+- [ ] Longest Common Subsequence
+- [ ] Best Time to Buy and Sell Stock with Cooldown
+- [ ] Coin Change II
+- [ ] Target Sum
+- [ ] Interleaving String
+- [ ] Longest Increasing Path in a Matrix
+- [ ] Distinct Subsequences
+- [ ] Edit Distance
+- [ ] Burst Balloons
+- [ ] Regular Expression Matching
 
 **Advanced Graphs — Dijkstra** — Neetcode 150 (6 problems)
-- Reconstruct Itinerary
-- Min Cost to Connect All Points
-- Network Delay Time
-- Swim in Rising Water
-- Alien Dictionary
-- Cheapest Flights Within K Stops
+- [ ] Reconstruct Itinerary
+- [ ] Min Cost to Connect All Points
+- [ ] Network Delay Time
+- [ ] Swim in Rising Water
+- [ ] Alien Dictionary
+- [ ] Cheapest Flights Within K Stops
 
 **Backtracking** — Neetcode 150 (9 problems)
-- Subsets
-- Subsets II
-- Combination Sum
-- Combination Sum II
-- Permutations
-- Word Search
-- Palindrome Partitioning
-- Letter Combinations of a Phone Number
-- N-Queens
+- [ ] Subsets
+- [ ] Subsets II
+- [ ] Combination Sum
+- [ ] Combination Sum II
+- [ ] Permutations
+- [ ] Word Search
+- [ ] Palindrome Partitioning
+- [ ] Letter Combinations of a Phone Number
+- [ ] N-Queens
 
 **AtCoder Educational DP Contest** ⚠️ — 26 problems (A–Z)  
 The best resource for systematic DP practice ordered by pattern.  
