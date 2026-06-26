@@ -1,6 +1,7 @@
 #include "data_structures/disjoint_set_forest.hpp"
 
 #include <stdexcept>
+#include <unordered_map>
 
 namespace dsa::data_structures {
 
@@ -15,10 +16,36 @@ DisjointSetForest::~DisjointSetForest() {
 DisjointSetForest::DisjointSetForest(const DisjointSetForest& other)
     : head_(nullptr),
       size_(0) {
+    std::unordered_map<const DSFNode*, DSFNode*> old_to_new;
+
+    DSFNode* previous = nullptr;
     DSFNode* current = other.head_;
 
     while (current != nullptr) {
-        make_set(current->key);
+        DSFNode* copied = new DSFNode{
+            current->key,
+            nullptr,
+            current->rank,
+            nullptr
+        };
+
+        old_to_new[current] = copied;
+
+        if (previous == nullptr) {
+            head_ = copied;
+        } else {
+            previous->next = copied;
+        }
+
+        previous = copied;
+        current = current->next;
+        ++size_;
+    }
+
+    current = other.head_;
+
+    while (current != nullptr) {
+        old_to_new[current]->p = old_to_new[current->p];
         current = current->next;
     }
 }
@@ -90,7 +117,7 @@ DSFNode* DisjointSetForest::find_set(DSFNode* x) {
 
 void DisjointSetForest::union_sets(DSFNode* x, DSFNode* y) {
     if (x == nullptr || y == nullptr) {
-        throw std::invalid_argument("Node cannot be full");
+        throw std::invalid_argument("Node cannot be null");
     }
     
     link(find_set(x), find_set(y));
@@ -98,7 +125,7 @@ void DisjointSetForest::union_sets(DSFNode* x, DSFNode* y) {
 
 bool DisjointSetForest::connected(DSFNode* x, DSFNode* y) {
     if (x == nullptr || y == nullptr) {
-        throw std::invalid_argument("Node cannot be full");
+        throw std::invalid_argument("Node cannot be null");
     }
 
     return find_set(x) == find_set(y);
