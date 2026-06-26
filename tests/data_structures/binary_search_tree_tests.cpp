@@ -8,10 +8,10 @@
 namespace {
 
 using dsa::data_structures::BinarySearchTree;
-using dsa::data_structures::Node;
+using dsa::data_structures::BSTNode;
 
-Node* make_node(int key) {
-    return new Node{key, nullptr, nullptr, nullptr};
+BSTNode* make_node(int key) {
+    return new BSTNode{key, nullptr, nullptr, nullptr};
 }
 
 BinarySearchTree make_sample_tree() {
@@ -46,7 +46,7 @@ TEST_CASE("BinarySearchTree starts empty") {
 TEST_CASE("BinarySearchTree insert one node") {
     BinarySearchTree tree;
 
-    Node* node = make_node(10);
+    BSTNode* node = make_node(10);
     tree.insert(node);
 
     REQUIRE_FALSE(tree.empty());
@@ -74,7 +74,7 @@ TEST_CASE("BinarySearchTree insert builds a valid BST") {
 TEST_CASE("BinarySearchTree recursive search finds existing keys") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 13);
+    BSTNode* found = tree.tree_search(tree.root(), 13);
 
     REQUIRE(found != nullptr);
     REQUIRE(found->key == 13);
@@ -83,7 +83,7 @@ TEST_CASE("BinarySearchTree recursive search finds existing keys") {
 TEST_CASE("BinarySearchTree recursive search returns nullptr for missing key") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 100);
+    BSTNode* found = tree.tree_search(tree.root(), 100);
 
     REQUIRE(found == nullptr);
 }
@@ -91,7 +91,7 @@ TEST_CASE("BinarySearchTree recursive search returns nullptr for missing key") {
 TEST_CASE("BinarySearchTree iterative search finds existing keys") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), 17);
+    BSTNode* found = tree.iterative_tree_search(tree.root(), 17);
 
     REQUIRE(found != nullptr);
     REQUIRE(found->key == 17);
@@ -100,7 +100,7 @@ TEST_CASE("BinarySearchTree iterative search finds existing keys") {
 TEST_CASE("BinarySearchTree iterative search returns nullptr for missing key") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), -1);
+    BSTNode* found = tree.iterative_tree_search(tree.root(), -1);
 
     REQUIRE(found == nullptr);
 }
@@ -108,7 +108,7 @@ TEST_CASE("BinarySearchTree iterative search returns nullptr for missing key") {
 TEST_CASE("BinarySearchTree minimum returns smallest node") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* min = tree.minimum(tree.root());
+    BSTNode* min = tree.minimum(tree.root());
 
     REQUIRE(min != nullptr);
     REQUIRE(min->key == 2);
@@ -117,7 +117,7 @@ TEST_CASE("BinarySearchTree minimum returns smallest node") {
 TEST_CASE("BinarySearchTree maximum returns largest node") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* max = tree.maximum(tree.root());
+    BSTNode* max = tree.maximum(tree.root());
 
     REQUIRE(max != nullptr);
     REQUIRE(max->key == 20);
@@ -138,8 +138,8 @@ TEST_CASE("BinarySearchTree maximum throws on nullptr") {
 TEST_CASE("BinarySearchTree successor works when node has right subtree") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* succ = tree.successor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 6);
+    BSTNode* succ = tree.successor(node);
 
     REQUIRE(succ != nullptr);
     REQUIRE(succ->key == 7);
@@ -148,8 +148,8 @@ TEST_CASE("BinarySearchTree successor works when node has right subtree") {
 TEST_CASE("BinarySearchTree successor works when node has no right subtree") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 13);
-    Node* succ = tree.successor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 13);
+    BSTNode* succ = tree.successor(node);
 
     REQUIRE(succ != nullptr);
     REQUIRE(succ->key == 15);
@@ -158,8 +158,8 @@ TEST_CASE("BinarySearchTree successor works when node has no right subtree") {
 TEST_CASE("BinarySearchTree successor of maximum is nullptr") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 20);
-    Node* succ = tree.successor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 20);
+    BSTNode* succ = tree.successor(node);
 
     REQUIRE(succ == nullptr);
 }
@@ -167,8 +167,8 @@ TEST_CASE("BinarySearchTree successor of maximum is nullptr") {
 TEST_CASE("BinarySearchTree predecessor works when node has left subtree") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* pred = tree.predecessor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 6);
+    BSTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nullptr);
     REQUIRE(pred->key == 4);
@@ -177,8 +177,8 @@ TEST_CASE("BinarySearchTree predecessor works when node has left subtree") {
 TEST_CASE("BinarySearchTree predecessor works when node has no left subtree") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
-    Node* pred = tree.predecessor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 7);
+    BSTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nullptr);
     REQUIRE(pred->key == 6);
@@ -187,8 +187,8 @@ TEST_CASE("BinarySearchTree predecessor works when node has no left subtree") {
 TEST_CASE("BinarySearchTree predecessor of minimum is nullptr") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
-    Node* pred = tree.predecessor(node);
+    BSTNode* node = tree.tree_search(tree.root(), 2);
+    BSTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred == nullptr);
 }
@@ -196,7 +196,7 @@ TEST_CASE("BinarySearchTree predecessor of minimum is nullptr") {
 TEST_CASE("BinarySearchTree delete leaf node") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
+    BSTNode* node = tree.tree_search(tree.root(), 2);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -209,7 +209,7 @@ TEST_CASE("BinarySearchTree delete leaf node") {
 TEST_CASE("BinarySearchTree delete node with one child") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
+    BSTNode* node = tree.tree_search(tree.root(), 7);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -222,7 +222,7 @@ TEST_CASE("BinarySearchTree delete node with one child") {
 TEST_CASE("BinarySearchTree delete node with two children") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
+    BSTNode* node = tree.tree_search(tree.root(), 6);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -235,7 +235,7 @@ TEST_CASE("BinarySearchTree delete node with two children") {
 TEST_CASE("BinarySearchTree delete root node") {
     BinarySearchTree tree = make_sample_tree();
 
-    Node* root = tree.root();
+    BSTNode* root = tree.root();
     REQUIRE(root->key == 15);
 
     tree.tree_delete(root);
@@ -255,7 +255,7 @@ TEST_CASE("BinarySearchTree delete only node leaves tree empty") {
 
     tree.insert(make_node(10));
 
-    Node* node = tree.root();
+    BSTNode* node = tree.root();
     tree.tree_delete(node);
 
     REQUIRE(tree.empty());
@@ -299,8 +299,8 @@ TEST_CASE("BinarySearchTree copy constructor performs deep copy") {
     REQUIRE(copy.root() != original.root());
     REQUIRE(copy.root()->p == nullptr);
 
-    Node* copied_node = copy.tree_search(copy.root(), 13);
-    Node* original_node = original.tree_search(original.root(), 13);
+    BSTNode* copied_node = copy.tree_search(copy.root(), 13);
+    BSTNode* original_node = original.tree_search(original.root(), 13);
 
     REQUIRE(copied_node != nullptr);
     REQUIRE(original_node != nullptr);
@@ -335,7 +335,7 @@ TEST_CASE("BinarySearchTree copy assignment handles self assignment") {
 
 TEST_CASE("BinarySearchTree move constructor transfers ownership") {
     BinarySearchTree original = make_sample_tree();
-    Node* original_root = original.root();
+    BSTNode* original_root = original.root();
 
     BinarySearchTree moved(std::move(original));
 
@@ -352,7 +352,7 @@ TEST_CASE("BinarySearchTree move constructor transfers ownership") {
 
 TEST_CASE("BinarySearchTree move assignment transfers ownership") {
     BinarySearchTree original = make_sample_tree();
-    Node* original_root = original.root();
+    BSTNode* original_root = original.root();
 
     BinarySearchTree moved;
     moved.insert(make_node(100));
