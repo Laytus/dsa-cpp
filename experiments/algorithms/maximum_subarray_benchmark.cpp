@@ -40,7 +40,7 @@ long long measure_microseconds(Function function, int repetitions) {
 
 }  // namespace
 
-int main() {
+void run_maximum_subarray_benchmark() {
     constexpr std::size_t max_n = 500;
     constexpr int repetitions = 1000;
 
@@ -87,6 +87,4 @@ int main() {
     } else {
         std::cerr << "No crossover found up to max_n.\n";
     }
-
-    return 0;
 }

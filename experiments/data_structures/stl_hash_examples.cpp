@@ -269,7 +269,7 @@ void simple_lookup_timing_comparison() {
 
 }  // namespace
 
-int main() {
+void run_stl_hash_examples() {
     stl_unordered_set_example();
     stl_unordered_map_example();
 
