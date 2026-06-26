@@ -17,6 +17,10 @@ MinPriorityQueue::MinPriorityQueue(std::size_t capacity)
     }
 
     set_ = new Node*[capacity_];
+
+    for (std::size_t i = 0; i < capacity_; ++i) {
+        set_[i] = nullptr;
+    }
 }
 
 MinPriorityQueue::~MinPriorityQueue() {
@@ -29,7 +33,9 @@ MinPriorityQueue::MinPriorityQueue(const MinPriorityQueue& other)
       heap_size_(other.heap_size_) {
     for (std::size_t i = 0; i < heap_size_; ++i) {
         set_[i] = other.set_[i];
+        set_[i]->heap_index = i;
     }
+
     for (std::size_t i = heap_size_; i < capacity_; ++i) {
         set_[i] = nullptr;
     }
@@ -44,6 +50,11 @@ MinPriorityQueue& MinPriorityQueue::operator=(const MinPriorityQueue& other) {
 
     for (std::size_t i = 0; i < other.heap_size_; ++i) {
         new_data[i] = other.set_[i];
+        new_data[i]->heap_index = i;
+    }
+
+    for (std::size_t i = other.heap_size_; i < other.capacity_; ++i) {
+        new_data[i] = nullptr;
     }
 
     delete[] set_;
@@ -51,10 +62,6 @@ MinPriorityQueue& MinPriorityQueue::operator=(const MinPriorityQueue& other) {
     set_ = new_data;
     capacity_ = other.capacity_;
     heap_size_ = other.heap_size_;
-
-    for (std::size_t i = heap_size_; i < capacity_; ++i) {
-        set_[i] = nullptr;
-    }
 
     return *this;
 }
@@ -99,10 +106,13 @@ Node* MinPriorityQueue::extract_min() {
 
     set_[0] = set_[heap_size_ - 1];
     --heap_size_;
+    set_[heap_size_] = nullptr;
+
+    min->heap_index = std::numeric_limits<std::size_t>::max();
 
     if (heap_size_ > 0) {
+        set_[0]->heap_index = 0;
         min_heapify(0);
-        set_[heap_size_] = nullptr;
     }
 
     return min;
@@ -131,6 +141,9 @@ void MinPriorityQueue::decrease_key(
         }
 
         std::swap(set_[parent_index], set_[i]);
+        set_[parent_index]->heap_index = parent_index;
+        set_[i]->heap_index = i;
+
         i = parent_index;
     }
 }
@@ -147,6 +160,7 @@ void MinPriorityQueue::insert(Node* node) {
     const std::size_t original_key = node->key;
     
     node->key = std::numeric_limits<std::size_t>::max();
+    node->heap_index = heap_size_;
     set_[heap_size_] = node;
     ++heap_size_;
 
@@ -162,13 +176,17 @@ std::size_t MinPriorityQueue::heap_size() const {
 }
 
 std::size_t MinPriorityQueue::find_index(Node* node) {
-    for (std::size_t i = 0; i < heap_size_; ++i) {
-        if (set_[i] == node) {
-            return i;
-        }
+    if (node == nullptr) {
+        throw std::invalid_argument("Node cannot be null");
     }
 
-    throw std::invalid_argument("Node not found in priority queue");
+    const std::size_t i = node->heap_index;
+
+    if (i >= heap_size_ || set_[i] != node) {
+        throw std::invalid_argument("Node not found in priority queue");
+    }
+
+    return i;
 }
 
 void MinPriorityQueue::min_heapify(
@@ -188,6 +206,9 @@ void MinPriorityQueue::min_heapify(
 
     if (smallest != i) {
         std::swap(set_[i], set_[smallest]);
+        set_[i]->heap_index = i;
+        set_[smallest]->heap_index = smallest;
+        
         min_heapify(smallest);
     }
 }

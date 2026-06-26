@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <algorithm>
+#include <limits>
 
 namespace dsa::data_structures {
 
@@ -16,6 +17,10 @@ MaxPriorityQueue::MaxPriorityQueue(std::size_t capacity)
     }
 
     set_ = new Node*[capacity_];
+
+    for (std::size_t i = 0; i < capacity_; ++i) {
+        set_[i] = nullptr;
+    }
 }
 
 MaxPriorityQueue::~MaxPriorityQueue() {
@@ -28,7 +33,9 @@ MaxPriorityQueue::MaxPriorityQueue(const MaxPriorityQueue& other)
       heap_size_(other.heap_size_) {
     for (std::size_t i = 0; i < heap_size_; ++i) {
         set_[i] = other.set_[i];
+        set_[i]->heap_index = i;
     }
+
     for (std::size_t i = heap_size_; i < capacity_; ++i) {
         set_[i] = nullptr;
     }
@@ -43,6 +50,11 @@ MaxPriorityQueue& MaxPriorityQueue::operator=(const MaxPriorityQueue& other) {
 
     for (std::size_t i = 0; i < other.heap_size_; ++i) {
         new_data[i] = other.set_[i];
+        new_data[i]->heap_index = i;
+    }
+
+    for (std::size_t i = other.heap_size_; i < other.capacity_; ++i) {
+        new_data[i] = nullptr;
     }
 
     delete[] set_;
@@ -50,10 +62,6 @@ MaxPriorityQueue& MaxPriorityQueue::operator=(const MaxPriorityQueue& other) {
     set_ = new_data;
     capacity_ = other.capacity_;
     heap_size_ = other.heap_size_;
-
-    for (std::size_t i = heap_size_; i < capacity_; ++i) {
-        set_[i] = nullptr;
-    }
 
     return *this;
 }
@@ -98,10 +106,13 @@ Node* MaxPriorityQueue::extract_max() {
 
     set_[0] = set_[heap_size_ - 1];
     --heap_size_;
+    set_[heap_size_] = nullptr;
+
+    max->heap_index = std::numeric_limits<std::size_t>::max();
 
     if (heap_size_ > 0) {
+        set_[0]->heap_index = 0;
         max_heapify(0);
-        set_[heap_size_] = nullptr;
     }
 
     return max;
@@ -130,6 +141,9 @@ void MaxPriorityQueue::increase_key(
         }
 
         std::swap(set_[parent_index], set_[i]);
+        set_[parent_index]->heap_index = parent_index;
+        set_[i]->heap_index = i;
+
         i = parent_index;
     }
 }
@@ -146,6 +160,7 @@ void MaxPriorityQueue::insert(Node* node) {
     const std::size_t original_key = node->key;
     
     node->key = 0;
+    node->heap_index = heap_size_;
     set_[heap_size_] = node;
     ++heap_size_;
 
@@ -161,13 +176,17 @@ std::size_t MaxPriorityQueue::heap_size() const {
 }
 
 std::size_t MaxPriorityQueue::find_index(Node* node) {
-    for (std::size_t i = 0; i < heap_size_; ++i) {
-        if (set_[i] == node) {
-            return i;
-        }
+    if (node == nullptr) {
+        throw std::invalid_argument("Node cannot be null");
     }
 
-    throw std::invalid_argument("Node not found in priority queue");
+    const std::size_t i = node->heap_index;
+
+    if (i >= heap_size_ || set_[i] != node) {
+        throw std::invalid_argument("Node not found in priority queue");
+    }
+
+    return i;
 }
 
 void MaxPriorityQueue::max_heapify(
@@ -187,6 +206,9 @@ void MaxPriorityQueue::max_heapify(
 
     if (largest != i) {
         std::swap(set_[i], set_[largest]);
+        set_[i]->heap_index = i;
+        set_[largest]->heap_index = largest;
+        
         max_heapify(largest);
     }
 }
