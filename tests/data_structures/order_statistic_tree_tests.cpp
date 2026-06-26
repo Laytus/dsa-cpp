@@ -9,31 +9,31 @@
 
 namespace {
 
-using dsa::data_structures::Node;
+using dsa::data_structures::OSTreeNode;
 using dsa::data_structures::OrderStatisticTree;
-using dsa::data_structures::RBTreeColor;
+using dsa::data_structures::OSTreeColor;
 
-Node* make_node(int key) {
-    return new Node{
+OSTreeNode* make_node(int key) {
+    return new OSTreeNode{
         key,
         1,
-        RBTreeColor::black,
+        OSTreeColor::black,
         nullptr,
         nullptr,
         nullptr
     };
 }
 
-bool is_nil(Node* node) {
+bool is_nil(OSTreeNode* node) {
     return node != nullptr &&
-           node->color == RBTreeColor::black &&
+           node->color == OSTreeColor::black &&
            node->left == node &&
            node->right == node &&
            node->size == 0;
 }
 
-Node* nil_of(const OrderStatisticTree& tree) {
-    Node* root = tree.root();
+OSTreeNode* nil_of(const OrderStatisticTree& tree) {
+    OSTreeNode* root = tree.root();
 
     if (root == nullptr) {
         return nullptr;
@@ -51,8 +51,8 @@ bool is_sorted_non_decreasing(const std::vector<int>& values) {
 }
 
 bool check_bst_property(
-    Node* node,
-    Node* nil,
+    OSTreeNode* node,
+    OSTreeNode* nil,
     int min_value,
     int max_value
 ) {
@@ -68,14 +68,14 @@ bool check_bst_property(
            check_bst_property(node->right, nil, node->key, max_value);
 }
 
-bool check_no_red_red_violation(Node* node, Node* nil) {
+bool check_no_red_red_violation(OSTreeNode* node, OSTreeNode* nil) {
     if (node == nullptr || node == nil) {
         return true;
     }
 
-    if (node->color == RBTreeColor::red) {
-        if (node->left->color == RBTreeColor::red ||
-            node->right->color == RBTreeColor::red) {
+    if (node->color == OSTreeColor::red) {
+        if (node->left->color == OSTreeColor::red ||
+            node->right->color == OSTreeColor::red) {
             return false;
         }
     }
@@ -84,7 +84,7 @@ bool check_no_red_red_violation(Node* node, Node* nil) {
            check_no_red_red_violation(node->right, nil);
 }
 
-int black_height_or_negative_one(Node* node, Node* nil) {
+int black_height_or_negative_one(OSTreeNode* node, OSTreeNode* nil) {
     if (node == nullptr) {
         return -1;
     }
@@ -102,12 +102,12 @@ int black_height_or_negative_one(Node* node, Node* nil) {
         return -1;
     }
 
-    const int self_black = node->color == RBTreeColor::black ? 1 : 0;
+    const int self_black = node->color == OSTreeColor::black ? 1 : 0;
 
     return left_black_height + self_black;
 }
 
-bool check_all_real_node_links_are_non_null(Node* node, Node* nil) {
+bool check_all_real_node_links_are_non_null(OSTreeNode* node, OSTreeNode* nil) {
     if (node == nullptr || node == nil) {
         return true;
     }
@@ -120,7 +120,7 @@ bool check_all_real_node_links_are_non_null(Node* node, Node* nil) {
            check_all_real_node_links_are_non_null(node->right, nil);
 }
 
-int subtree_size_or_negative_one(Node* node, Node* nil) {
+int subtree_size_or_negative_one(OSTreeNode* node, OSTreeNode* nil) {
     if (node == nullptr) {
         return -1;
     }
@@ -146,14 +146,14 @@ int subtree_size_or_negative_one(Node* node, Node* nil) {
 }
 
 void require_valid_order_statistic_tree(const OrderStatisticTree& tree) {
-    Node* root = tree.root();
+    OSTreeNode* root = tree.root();
 
     REQUIRE(root != nullptr);
 
-    Node* nil = nil_of(tree);
+    OSTreeNode* nil = nil_of(tree);
 
     REQUIRE(nil != nullptr);
-    REQUIRE(nil->color == RBTreeColor::black);
+    REQUIRE(nil->color == OSTreeColor::black);
     REQUIRE(nil->left == nil);
     REQUIRE(nil->right == nil);
     REQUIRE(nil->size == 0);
@@ -165,7 +165,7 @@ void require_valid_order_statistic_tree(const OrderStatisticTree& tree) {
     }
 
     REQUIRE(root != nil);
-    REQUIRE(root->color == RBTreeColor::black);
+    REQUIRE(root->color == OSTreeColor::black);
     REQUIRE(root->p == nil);
 
     REQUIRE(check_all_real_node_links_are_non_null(root, nil));
@@ -229,10 +229,10 @@ TEST_CASE("OrderStatisticTree insert one node") {
     REQUIRE(tree.size() == 1);
     REQUIRE(tree.root() != nullptr);
     REQUIRE(tree.root()->key == 10);
-    REQUIRE(tree.root()->color == RBTreeColor::black);
+    REQUIRE(tree.root()->color == OSTreeColor::black);
     REQUIRE(tree.root()->size == 1);
 
-    Node* nil = nil_of(tree);
+    OSTreeNode* nil = nil_of(tree);
 
     REQUIRE(tree.root()->p == nil);
     REQUIRE(tree.root()->left == nil);
@@ -297,7 +297,7 @@ TEST_CASE("OrderStatisticTree remains valid after decreasing insertions") {
 TEST_CASE("OrderStatisticTree recursive search finds existing key") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 13);
+    OSTreeNode* found = tree.tree_search(tree.root(), 13);
 
     REQUIRE(found != nil_of(tree));
     REQUIRE(found != nullptr);
@@ -307,7 +307,7 @@ TEST_CASE("OrderStatisticTree recursive search finds existing key") {
 TEST_CASE("OrderStatisticTree recursive search returns nil for missing key") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 100);
+    OSTreeNode* found = tree.tree_search(tree.root(), 100);
 
     REQUIRE(found == nil_of(tree));
 }
@@ -315,7 +315,7 @@ TEST_CASE("OrderStatisticTree recursive search returns nil for missing key") {
 TEST_CASE("OrderStatisticTree iterative search finds existing key") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), 17);
+    OSTreeNode* found = tree.iterative_tree_search(tree.root(), 17);
 
     REQUIRE(found != nil_of(tree));
     REQUIRE(found != nullptr);
@@ -325,7 +325,7 @@ TEST_CASE("OrderStatisticTree iterative search finds existing key") {
 TEST_CASE("OrderStatisticTree iterative search returns nil for missing key") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), -1);
+    OSTreeNode* found = tree.iterative_tree_search(tree.root(), -1);
 
     REQUIRE(found == nil_of(tree));
 }
@@ -333,7 +333,7 @@ TEST_CASE("OrderStatisticTree iterative search returns nil for missing key") {
 TEST_CASE("OrderStatisticTree minimum returns smallest node") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* min = tree.minimum(tree.root());
+    OSTreeNode* min = tree.minimum(tree.root());
 
     REQUIRE(min != nil_of(tree));
     REQUIRE(min->key == 2);
@@ -342,7 +342,7 @@ TEST_CASE("OrderStatisticTree minimum returns smallest node") {
 TEST_CASE("OrderStatisticTree maximum returns largest node") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* max = tree.maximum(tree.root());
+    OSTreeNode* max = tree.maximum(tree.root());
 
     REQUIRE(max != nil_of(tree));
     REQUIRE(max->key == 20);
@@ -363,8 +363,8 @@ TEST_CASE("OrderStatisticTree maximum throws on nil root") {
 TEST_CASE("OrderStatisticTree successor works when node has right subtree") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* succ = tree.successor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 6);
+    OSTreeNode* succ = tree.successor(node);
 
     REQUIRE(succ != nil_of(tree));
     REQUIRE(succ->key == 7);
@@ -373,8 +373,8 @@ TEST_CASE("OrderStatisticTree successor works when node has right subtree") {
 TEST_CASE("OrderStatisticTree successor works when node has no right subtree") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 13);
-    Node* succ = tree.successor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 13);
+    OSTreeNode* succ = tree.successor(node);
 
     REQUIRE(succ != nil_of(tree));
     REQUIRE(succ->key == 15);
@@ -383,8 +383,8 @@ TEST_CASE("OrderStatisticTree successor works when node has no right subtree") {
 TEST_CASE("OrderStatisticTree successor of maximum returns nil") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 20);
-    Node* succ = tree.successor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 20);
+    OSTreeNode* succ = tree.successor(node);
 
     REQUIRE(succ == nil_of(tree));
 }
@@ -392,8 +392,8 @@ TEST_CASE("OrderStatisticTree successor of maximum returns nil") {
 TEST_CASE("OrderStatisticTree predecessor works when node has left subtree") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* pred = tree.predecessor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 6);
+    OSTreeNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nil_of(tree));
     REQUIRE(pred->key == 4);
@@ -402,8 +402,8 @@ TEST_CASE("OrderStatisticTree predecessor works when node has left subtree") {
 TEST_CASE("OrderStatisticTree predecessor works when node has no left subtree") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
-    Node* pred = tree.predecessor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 7);
+    OSTreeNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nil_of(tree));
     REQUIRE(pred->key == 6);
@@ -412,8 +412,8 @@ TEST_CASE("OrderStatisticTree predecessor works when node has no left subtree") 
 TEST_CASE("OrderStatisticTree predecessor of minimum returns nil") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
-    Node* pred = tree.predecessor(node);
+    OSTreeNode* node = tree.tree_search(tree.root(), 2);
+    OSTreeNode* pred = tree.predecessor(node);
 
     REQUIRE(pred == nil_of(tree));
 }
@@ -426,7 +426,7 @@ TEST_CASE("OrderStatisticTree tree_select returns each order statistic") {
     };
 
     for (int i = 1; i <= static_cast<int>(expected.size()); ++i) {
-        Node* selected = tree.tree_select(tree.root(), i);
+        OSTreeNode* selected = tree.tree_select(tree.root(), i);
 
         REQUIRE(selected != nil_of(tree));
         REQUIRE(selected->key == expected[static_cast<std::size_t>(i - 1)]);
@@ -453,7 +453,7 @@ TEST_CASE("OrderStatisticTree tree_rank returns one-based rank of each node") {
     };
 
     for (std::size_t i = 0; i < sorted.size(); ++i) {
-        Node* node = tree.tree_search(tree.root(), sorted[i]);
+        OSTreeNode* node = tree.tree_search(tree.root(), sorted[i]);
 
         REQUIRE(node != nil_of(tree));
         REQUIRE(tree.tree_rank(node) == static_cast<int>(i + 1));
@@ -485,9 +485,9 @@ TEST_CASE("OrderStatisticTree supports duplicate keys") {
     REQUIRE(tree.size() == 3);
     REQUIRE(tree.inorder_tree_walk() == std::vector<int>{10, 10, 10});
 
-    Node* first = tree.tree_select(tree.root(), 1);
-    Node* second = tree.tree_select(tree.root(), 2);
-    Node* third = tree.tree_select(tree.root(), 3);
+    OSTreeNode* first = tree.tree_select(tree.root(), 1);
+    OSTreeNode* second = tree.tree_select(tree.root(), 2);
+    OSTreeNode* third = tree.tree_select(tree.root(), 3);
 
     REQUIRE(first != nil_of(tree));
     REQUIRE(second != nil_of(tree));
@@ -503,7 +503,7 @@ TEST_CASE("OrderStatisticTree supports duplicate keys") {
 TEST_CASE("OrderStatisticTree delete leaf node") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
+    OSTreeNode* node = tree.tree_search(tree.root(), 2);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -518,7 +518,7 @@ TEST_CASE("OrderStatisticTree delete leaf node") {
 TEST_CASE("OrderStatisticTree delete node with one child") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
+    OSTreeNode* node = tree.tree_search(tree.root(), 7);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -533,7 +533,7 @@ TEST_CASE("OrderStatisticTree delete node with one child") {
 TEST_CASE("OrderStatisticTree delete node with two children") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
+    OSTreeNode* node = tree.tree_search(tree.root(), 6);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -548,7 +548,7 @@ TEST_CASE("OrderStatisticTree delete node with two children") {
 TEST_CASE("OrderStatisticTree delete root node") {
     OrderStatisticTree tree = make_sample_tree();
 
-    Node* old_root = tree.root();
+    OSTreeNode* old_root = tree.root();
     const int old_root_key = old_root->key;
 
     tree.tree_delete(old_root);
@@ -564,7 +564,7 @@ TEST_CASE("OrderStatisticTree delete only node leaves tree empty") {
 
     tree.insert(make_node(10));
 
-    Node* node = tree.root();
+    OSTreeNode* node = tree.root();
     tree.tree_delete(node);
 
     REQUIRE(tree.empty());
@@ -603,7 +603,7 @@ TEST_CASE("OrderStatisticTree remains valid after deleting many values") {
     };
 
     for (int value : values_to_delete) {
-        Node* node = tree.tree_search(tree.root(), value);
+        OSTreeNode* node = tree.tree_search(tree.root(), value);
 
         REQUIRE(node != nil_of(tree));
 
@@ -624,7 +624,7 @@ TEST_CASE("OrderStatisticTree select and rank remain correct after deletions") {
     const std::vector<int> values_to_delete{1, 4, 7, 10, 13, 16, 19};
 
     for (int value : values_to_delete) {
-        Node* node = tree.tree_search(tree.root(), value);
+        OSTreeNode* node = tree.tree_search(tree.root(), value);
 
         REQUIRE(node != nil_of(tree));
 
@@ -638,7 +638,7 @@ TEST_CASE("OrderStatisticTree select and rank remain correct after deletions") {
     REQUIRE(tree.inorder_tree_walk() == expected);
 
     for (int i = 1; i <= static_cast<int>(expected.size()); ++i) {
-        Node* selected = tree.tree_select(tree.root(), i);
+        OSTreeNode* selected = tree.tree_select(tree.root(), i);
 
         REQUIRE(selected != nil_of(tree));
         REQUIRE(selected->key == expected[static_cast<std::size_t>(i - 1)]);
@@ -662,8 +662,8 @@ TEST_CASE("OrderStatisticTree copy constructor performs deep copy") {
 
     REQUIRE(copy.root()->p == nil_of(copy));
 
-    Node* copied_node = copy.tree_search(copy.root(), 13);
-    Node* original_node = original.tree_search(original.root(), 13);
+    OSTreeNode* copied_node = copy.tree_search(copy.root(), 13);
+    OSTreeNode* original_node = original.tree_search(original.root(), 13);
 
     REQUIRE(copied_node != nil_of(copy));
     REQUIRE(original_node != nil_of(original));
@@ -690,7 +690,7 @@ TEST_CASE("OrderStatisticTree copy assignment performs deep copy") {
     REQUIRE(copy.root()->p == nil_of(copy));
 
     for (int i = 1; i <= static_cast<int>(copy.size()); ++i) {
-        Node* selected = copy.tree_select(copy.root(), i);
+        OSTreeNode* selected = copy.tree_select(copy.root(), i);
 
         REQUIRE(selected != nil_of(copy));
         REQUIRE(copy.tree_rank(selected) == i);
@@ -715,7 +715,7 @@ TEST_CASE("OrderStatisticTree copy assignment handles self assignment") {
 
 TEST_CASE("OrderStatisticTree move constructor transfers ownership") {
     OrderStatisticTree original = make_sample_tree();
-    Node* original_root = original.root();
+    OSTreeNode* original_root = original.root();
 
     OrderStatisticTree moved(std::move(original));
 
@@ -734,7 +734,7 @@ TEST_CASE("OrderStatisticTree move constructor transfers ownership") {
 
 TEST_CASE("OrderStatisticTree move assignment transfers ownership") {
     OrderStatisticTree original = make_sample_tree();
-    Node* original_root = original.root();
+    OSTreeNode* original_root = original.root();
 
     OrderStatisticTree moved;
     moved.insert(make_node(100));
