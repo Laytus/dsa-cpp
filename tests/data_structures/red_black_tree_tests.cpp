@@ -9,23 +9,23 @@
 
 namespace {
 
-using dsa::data_structures::Node;
+using dsa::data_structures::RBTNode;
 using dsa::data_structures::RBTreeColor;
 using dsa::data_structures::RedBlackTree;
 
-Node* make_node(int key) {
-    return new Node{key, RBTreeColor::black, nullptr, nullptr, nullptr};
+RBTNode* make_node(int key) {
+    return new RBTNode{key, RBTreeColor::black, nullptr, nullptr, nullptr};
 }
 
-bool is_nil(Node* node) {
+bool is_nil(RBTNode* node) {
     return node != nullptr &&
            node->color == RBTreeColor::black &&
            node->left == node &&
            node->right == node;
 }
 
-Node* nil_of(const RedBlackTree& tree) {
-    Node* root = tree.root();
+RBTNode* nil_of(const RedBlackTree& tree) {
+    RBTNode* root = tree.root();
 
     if (root == nullptr) {
         return nullptr;
@@ -43,8 +43,8 @@ bool is_sorted_non_decreasing(const std::vector<int>& values) {
 }
 
 bool check_bst_property(
-    Node* node,
-    Node* nil,
+    RBTNode* node,
+    RBTNode* nil,
     int min_value,
     int max_value
 ) {
@@ -60,7 +60,7 @@ bool check_bst_property(
            check_bst_property(node->right, nil, node->key, max_value);
 }
 
-bool check_no_red_red_violation(Node* node, Node* nil) {
+bool check_no_red_red_violation(RBTNode* node, RBTNode* nil) {
     if (node == nullptr || node == nil) {
         return true;
     }
@@ -76,7 +76,7 @@ bool check_no_red_red_violation(Node* node, Node* nil) {
            check_no_red_red_violation(node->right, nil);
 }
 
-int black_height_or_negative_one(Node* node, Node* nil) {
+int black_height_or_negative_one(RBTNode* node, RBTNode* nil) {
     if (node == nullptr) {
         return -1;
     }
@@ -99,7 +99,7 @@ int black_height_or_negative_one(Node* node, Node* nil) {
     return left_black_height + self_black;
 }
 
-bool check_all_real_node_children_are_non_null(Node* node, Node* nil) {
+bool check_all_real_node_children_are_non_null(RBTNode* node, RBTNode* nil) {
     if (node == nullptr || node == nil) {
         return true;
     }
@@ -113,11 +113,11 @@ bool check_all_real_node_children_are_non_null(Node* node, Node* nil) {
 }
 
 void require_valid_red_black_tree(const RedBlackTree& tree) {
-    Node* root = tree.root();
+    RBTNode* root = tree.root();
 
     REQUIRE(root != nullptr);
 
-    Node* nil = nil_of(tree);
+    RBTNode* nil = nil_of(tree);
 
     REQUIRE(nil != nullptr);
     REQUIRE(nil->color == RBTreeColor::black);
@@ -189,7 +189,7 @@ TEST_CASE("RedBlackTree insert one node") {
     REQUIRE(tree.root()->key == 10);
     REQUIRE(tree.root()->color == RBTreeColor::black);
 
-    Node* nil = nil_of(tree);
+    RBTNode* nil = nil_of(tree);
 
     REQUIRE(tree.root()->p == nil);
     REQUIRE(tree.root()->left == nil);
@@ -254,7 +254,7 @@ TEST_CASE("RedBlackTree remains valid after decreasing insertions") {
 TEST_CASE("RedBlackTree recursive search finds existing key") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 13);
+    RBTNode* found = tree.tree_search(tree.root(), 13);
 
     REQUIRE(found != nil_of(tree));
     REQUIRE(found != nullptr);
@@ -264,7 +264,7 @@ TEST_CASE("RedBlackTree recursive search finds existing key") {
 TEST_CASE("RedBlackTree recursive search returns nil for missing key") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* found = tree.tree_search(tree.root(), 100);
+    RBTNode* found = tree.tree_search(tree.root(), 100);
 
     REQUIRE(found == nil_of(tree));
 }
@@ -272,7 +272,7 @@ TEST_CASE("RedBlackTree recursive search returns nil for missing key") {
 TEST_CASE("RedBlackTree iterative search finds existing key") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), 17);
+    RBTNode* found = tree.iterative_tree_search(tree.root(), 17);
 
     REQUIRE(found != nil_of(tree));
     REQUIRE(found != nullptr);
@@ -282,7 +282,7 @@ TEST_CASE("RedBlackTree iterative search finds existing key") {
 TEST_CASE("RedBlackTree iterative search returns nil for missing key") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* found = tree.iterative_tree_search(tree.root(), -1);
+    RBTNode* found = tree.iterative_tree_search(tree.root(), -1);
 
     REQUIRE(found == nil_of(tree));
 }
@@ -290,7 +290,7 @@ TEST_CASE("RedBlackTree iterative search returns nil for missing key") {
 TEST_CASE("RedBlackTree minimum returns smallest node") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* min = tree.minimum(tree.root());
+    RBTNode* min = tree.minimum(tree.root());
 
     REQUIRE(min != nil_of(tree));
     REQUIRE(min->key == 2);
@@ -299,7 +299,7 @@ TEST_CASE("RedBlackTree minimum returns smallest node") {
 TEST_CASE("RedBlackTree maximum returns largest node") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* max = tree.maximum(tree.root());
+    RBTNode* max = tree.maximum(tree.root());
 
     REQUIRE(max != nil_of(tree));
     REQUIRE(max->key == 20);
@@ -320,8 +320,8 @@ TEST_CASE("RedBlackTree maximum throws on nil root") {
 TEST_CASE("RedBlackTree successor works when node has right subtree") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* succ = tree.successor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 6);
+    RBTNode* succ = tree.successor(node);
 
     REQUIRE(succ != nil_of(tree));
     REQUIRE(succ->key == 7);
@@ -330,8 +330,8 @@ TEST_CASE("RedBlackTree successor works when node has right subtree") {
 TEST_CASE("RedBlackTree successor works when node has no right subtree") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 13);
-    Node* succ = tree.successor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 13);
+    RBTNode* succ = tree.successor(node);
 
     REQUIRE(succ != nil_of(tree));
     REQUIRE(succ->key == 15);
@@ -340,8 +340,8 @@ TEST_CASE("RedBlackTree successor works when node has no right subtree") {
 TEST_CASE("RedBlackTree successor of maximum returns nil") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 20);
-    Node* succ = tree.successor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 20);
+    RBTNode* succ = tree.successor(node);
 
     REQUIRE(succ == nil_of(tree));
 }
@@ -349,8 +349,8 @@ TEST_CASE("RedBlackTree successor of maximum returns nil") {
 TEST_CASE("RedBlackTree predecessor works when node has left subtree") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
-    Node* pred = tree.predecessor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 6);
+    RBTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nil_of(tree));
     REQUIRE(pred->key == 4);
@@ -359,8 +359,8 @@ TEST_CASE("RedBlackTree predecessor works when node has left subtree") {
 TEST_CASE("RedBlackTree predecessor works when node has no left subtree") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
-    Node* pred = tree.predecessor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 7);
+    RBTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred != nil_of(tree));
     REQUIRE(pred->key == 6);
@@ -369,8 +369,8 @@ TEST_CASE("RedBlackTree predecessor works when node has no left subtree") {
 TEST_CASE("RedBlackTree predecessor of minimum returns nil") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
-    Node* pred = tree.predecessor(node);
+    RBTNode* node = tree.tree_search(tree.root(), 2);
+    RBTNode* pred = tree.predecessor(node);
 
     REQUIRE(pred == nil_of(tree));
 }
@@ -397,7 +397,7 @@ TEST_CASE("RedBlackTree supports duplicate keys") {
 TEST_CASE("RedBlackTree delete leaf node") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 2);
+    RBTNode* node = tree.tree_search(tree.root(), 2);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -412,7 +412,7 @@ TEST_CASE("RedBlackTree delete leaf node") {
 TEST_CASE("RedBlackTree delete node with one child") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 7);
+    RBTNode* node = tree.tree_search(tree.root(), 7);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -427,7 +427,7 @@ TEST_CASE("RedBlackTree delete node with one child") {
 TEST_CASE("RedBlackTree delete node with two children") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* node = tree.tree_search(tree.root(), 6);
+    RBTNode* node = tree.tree_search(tree.root(), 6);
     tree.tree_delete(node);
 
     REQUIRE(tree.size() == 10);
@@ -442,7 +442,7 @@ TEST_CASE("RedBlackTree delete node with two children") {
 TEST_CASE("RedBlackTree delete root node") {
     RedBlackTree tree = make_sample_tree();
 
-    Node* old_root = tree.root();
+    RBTNode* old_root = tree.root();
     const int old_root_key = old_root->key;
 
     tree.tree_delete(old_root);
@@ -458,7 +458,7 @@ TEST_CASE("RedBlackTree delete only node leaves tree empty") {
 
     tree.insert(make_node(10));
 
-    Node* node = tree.root();
+    RBTNode* node = tree.root();
     tree.tree_delete(node);
 
     REQUIRE(tree.empty());
@@ -497,7 +497,7 @@ TEST_CASE("RedBlackTree remains valid after deleting many values") {
     };
 
     for (int value : values_to_delete) {
-        Node* node = tree.tree_search(tree.root(), value);
+        RBTNode* node = tree.tree_search(tree.root(), value);
 
         REQUIRE(node != nil_of(tree));
 
@@ -522,8 +522,8 @@ TEST_CASE("RedBlackTree copy constructor performs deep copy") {
 
     REQUIRE(copy.root()->p == nil_of(copy));
 
-    Node* copied_node = copy.tree_search(copy.root(), 13);
-    Node* original_node = original.tree_search(original.root(), 13);
+    RBTNode* copied_node = copy.tree_search(copy.root(), 13);
+    RBTNode* original_node = original.tree_search(original.root(), 13);
 
     REQUIRE(copied_node != nil_of(copy));
     REQUIRE(original_node != nil_of(original));
@@ -566,7 +566,7 @@ TEST_CASE("RedBlackTree copy assignment handles self assignment") {
 
 TEST_CASE("RedBlackTree move constructor transfers ownership") {
     RedBlackTree original = make_sample_tree();
-    Node* original_root = original.root();
+    RBTNode* original_root = original.root();
 
     RedBlackTree moved(std::move(original));
 
@@ -585,7 +585,7 @@ TEST_CASE("RedBlackTree move constructor transfers ownership") {
 
 TEST_CASE("RedBlackTree move assignment transfers ownership") {
     RedBlackTree original = make_sample_tree();
-    Node* original_root = original.root();
+    RBTNode* original_root = original.root();
 
     RedBlackTree moved;
     moved.insert(make_node(100));
