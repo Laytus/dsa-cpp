@@ -1,66 +1,47 @@
 #include <print>
 #include <cstddef>
 
-#include "algorithms/square_matrix_multiply_recursive.hpp"
-#include "utils/print_utils.hpp"
+#include "algorithms/dijkstra.hpp"
+#include "algorithms/single_source_shortest_paths.hpp"
+#include "data_structures/weighted_adjacency_list_graph.hpp"
 
 int main() {
-    const dsa::algorithms::Matrix A {
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16}
-    };
+    dsa::data_structures::WeightedAdjacencyListGraph graph(5, true);
 
-    std::size_t mid = A.size() / 2;
+    graph.add_edge(0, 1, 10);
+    graph.add_edge(0, 2, 3);
+    graph.add_edge(1, 2, 1);
+    graph.add_edge(1, 3, 2);
+    graph.add_edge(2, 1, 4);
+    graph.add_edge(2, 3, 8);
+    graph.add_edge(2, 4, 2);
+    graph.add_edge(3, 4, 7);
+    graph.add_edge(4, 3, 9);
 
-    dsa::algorithms::Matrix A11 = dsa::algorithms::submatrix(A, 0, 0, mid);
-    dsa::algorithms::Matrix A12 = dsa::algorithms::submatrix(A, 0, mid, 2);
-    dsa::algorithms::Matrix A21 = dsa::algorithms::submatrix(A, mid, 0, 2);
-    dsa::algorithms::Matrix A22 = dsa::algorithms::submatrix(A, mid, mid, 2);
-    
-    std::println("Matrix A11:");
-    dsa::utils::print_matrix(A11);
-    
-    std::println("Matrix A11:");
-    dsa::utils::print_matrix(A12);
-    
-    std::println("Matrix A11:");
-    dsa::utils::print_matrix(A21);
-    
-    std::println("Matrix A11:");
-    dsa::utils::print_matrix(A22);
-    
-    dsa::algorithms::Matrix C = dsa::algorithms::add_matrices(A11, A12);
-    
-    std::println("Matrix C:");
-    dsa::utils::print_matrix(C);
-    
-    dsa::algorithms::Matrix X {
-        {1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16}
-    };
-    
-    dsa::algorithms::copy_submatrix(X, C, 0, 0);
-    
-    std::println("Matrix X:");
-    dsa::utils::print_matrix(X);
+    const std::size_t source = 0;
+    const std::size_t target = 3;
 
+    const dsa::algorithms::ShortestPathResult result = dsa::algorithms::dijkstra(graph, source);
 
-    dsa::algorithms::Matrix Y {
-        {1, 1},
-        {1, 1}
-    };
+    if (result.distance[target] == std::numeric_limits<int>::max()) {
+        std::println("No path exists from {} to {}", source, target);
+        return 0;
+    }
 
-    dsa::algorithms::Matrix Z {
-        {2, 0},
-        {0, 2}
-    };
+    const std::vector<std::size_t> path = dsa::algorithms::build_shortest_path(result, source, target);
 
-    dsa::algorithms::Matrix result = dsa::algorithms::square_matrix_multiply_recursive(Y, Z);
+    std::println(
+        "Shortest distance from {} to {}: {}",
+        source, target, result.distance[target]
+    );
 
-    std::println("Matrix Result:");
-    dsa::utils::print_matrix(result);
+    std::print("Path: ");
+    for (std::size_t i = 0; i < path.size(); ++i) {
+        std::print("{}", path[i]);
+        if (i + 1 < path.size()) {
+            std::print(" -> ");
+        }
+    }
+    
+    std::println();
 }

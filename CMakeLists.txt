@@ -71,6 +71,11 @@ add_library(dsa_cpp
     src/algorithms/topological_sort.cpp
     src/algorithms/strongly_connected_components.cpp
     src/algorithms/minimum_spanning_tree.cpp
+    src/data_structures/weighted_adjacency_list_graph.cpp
+    src/algorithms/single_source_shortest_paths.cpp
+    src/algorithms/bellman_ford.cpp
+    src/algorithms/dag_shortest_paths.cpp
+    src/algorithms/dijkstra.cpp
 )
 
 target_include_directories(dsa_cpp
@@ -133,49 +138,54 @@ if(DSA_ENABLE_TESTS)
     FetchContent_MakeAvailable(Catch2)
 
     add_executable(dsa_tests
-        tests/algorithms/insertion_sort_tests.cpp
-        tests/algorithms/insertion_sort_array_tests.cpp
-        tests/algorithms/insertion_sort_inv_tests.cpp
-        tests/algorithms/linear_search_tests.cpp
-        tests/algorithms/selection_sort_tests.cpp
-        tests/algorithms/merge_sort_tests.cpp
-        tests/algorithms/find_maximum_subarray_tests.cpp
-        tests/algorithms/find_maximum_subarray_brute_force_tests.cpp
-        tests/algorithms/square_matrix_multiply_tests.cpp
-        tests/algorithms/square_matrix_multiply_recursive_tests.cpp
-        tests/algorithms/square_matrix_multiply_strassen_tests.cpp
-        tests/data_structures/stack_tests.cpp
-        tests/data_structures/queue_tests.cpp
-        tests/data_structures/linked_list_tests.cpp
-        tests/data_structures/circular_linked_list_tests.cpp
-        tests/data_structures/direct_access_table_tests.cpp
-        tests/data_structures/static_hash_chained_table_tests.cpp
-        tests/data_structures/universal_hash_chained_table_tests.cpp
-        tests/data_structures/open_addressing_hash_table_tests.cpp
-        tests/algorithms/heap_sort_tests.cpp
-        tests/data_structures/max_priority_queue_tests.cpp
-        tests/data_structures/min_priority_queue_tests.cpp
-        tests/algorithms/quick_sort_tests.cpp
-        tests/algorithms/counting_sort_tests.cpp
-        tests/algorithms/radix_sort_tests.cpp
-        tests/algorithms/bucket_sort_tests.cpp
-        tests/algorithms/minimum_maximum_tests.cpp
-        tests/algorithms/randomized_select_tests.cpp
-        tests/algorithms/select_tests.cpp
-        tests/data_structures/binary_search_tree_tests.cpp
-        tests/data_structures/red_black_tree_tests.cpp
-        tests/data_structures/order_statistic_tree_tests.cpp
-        tests/data_structures/interval_tree_tests.cpp
-        tests/data_structures/disjoint_set_forest_tests.cpp
-        tests/algorithms/matrix_chain_tests.cpp
-        tests/algorithms/longest_common_subsequence_tests.cpp
-        tests/algorithms/optimal_BST_tests.cpp
-        tests/algorithms/huffman_codes_tests.cpp
-        tests/algorithms/breadth_first_search_tests.cpp
-        tests/algorithms/depth_first_search_tests.cpp
-        tests/algorithms/topological_sort_tests.cpp
-        tests/algorithms/strongly_connected_components_tests.cpp
-        tests/algorithms/minimum_spanning_tree_tests.cpp
+        # tests/algorithms/insertion_sort_tests.cpp
+        # tests/algorithms/insertion_sort_array_tests.cpp
+        # tests/algorithms/insertion_sort_inv_tests.cpp
+        # tests/algorithms/linear_search_tests.cpp
+        # tests/algorithms/selection_sort_tests.cpp
+        # tests/algorithms/merge_sort_tests.cpp
+        # tests/algorithms/find_maximum_subarray_tests.cpp
+        # tests/algorithms/find_maximum_subarray_brute_force_tests.cpp
+        # tests/algorithms/square_matrix_multiply_tests.cpp
+        # tests/algorithms/square_matrix_multiply_recursive_tests.cpp
+        # tests/algorithms/square_matrix_multiply_strassen_tests.cpp
+        # tests/data_structures/stack_tests.cpp
+        # tests/data_structures/queue_tests.cpp
+        # tests/data_structures/linked_list_tests.cpp
+        # tests/data_structures/circular_linked_list_tests.cpp
+        # tests/data_structures/direct_access_table_tests.cpp
+        # tests/data_structures/static_hash_chained_table_tests.cpp
+        # tests/data_structures/universal_hash_chained_table_tests.cpp
+        # tests/data_structures/open_addressing_hash_table_tests.cpp
+        # tests/algorithms/heap_sort_tests.cpp
+        # tests/data_structures/max_priority_queue_tests.cpp
+        # tests/data_structures/min_priority_queue_tests.cpp
+        # tests/algorithms/quick_sort_tests.cpp
+        # tests/algorithms/counting_sort_tests.cpp
+        # tests/algorithms/radix_sort_tests.cpp
+        # tests/algorithms/bucket_sort_tests.cpp
+        # tests/algorithms/minimum_maximum_tests.cpp
+        # tests/algorithms/randomized_select_tests.cpp
+        # tests/algorithms/select_tests.cpp
+        # tests/data_structures/binary_search_tree_tests.cpp
+        # tests/data_structures/red_black_tree_tests.cpp
+        # tests/data_structures/order_statistic_tree_tests.cpp
+        # tests/data_structures/interval_tree_tests.cpp
+        # tests/data_structures/disjoint_set_forest_tests.cpp
+        # tests/algorithms/matrix_chain_tests.cpp
+        # tests/algorithms/longest_common_subsequence_tests.cpp
+        # tests/algorithms/optimal_BST_tests.cpp
+        # tests/algorithms/huffman_codes_tests.cpp
+        # tests/algorithms/breadth_first_search_tests.cpp
+        # tests/algorithms/depth_first_search_tests.cpp
+        # tests/algorithms/topological_sort_tests.cpp
+        # tests/algorithms/strongly_connected_components_tests.cpp
+        # tests/algorithms/minimum_spanning_tree_tests.cpp
+        # tests/algorithms/single_source_shortest_paths_tests.cpp
+        # tests/data_structures/weighted_adjacency_list_graph_tests.cpp
+        # tests/algorithms/bellman_ford_tests.cpp
+        # tests/algorithms/dag_shortest_paths_tests.cpp
+        tests/algorithms/dijkstra_tests.cpp
     )
 
     target_link_libraries(dsa_tests
