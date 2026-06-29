@@ -228,13 +228,11 @@ Source for all: [Neetcode.io](https://neetcode.io) + NeetCode YouTube channel.
 - [x] **Ch. 21** — Minimum Spanning Trees  
   Kruskal and Prim conceptually. Understand the proof of correctness. Do not implement from scratch.
 
-- [ ] **Ch. 22** — Single-Source Shortest Paths  
-  Dijkstra and Bellman-Ford. Implement Dijkstra with `priority_queue` in C++.
-
-### CLRS `[theory]`
+- [x] **Ch. 22** — Single-Source Shortest Paths  
+  Dijkstra and Bellman-Ford. Implement Dijkstra in C++.
 
 - [ ] **Ch. 23** — All-Pairs Shortest Paths *(secs. 23.1–23.2)*  
-  Floyd-Warshall and Johnson. Understand the logic and complexity. Do not implement.
+  Floyd-Warshall and Johnson. Understand the logic and complexity.
 
 ### LeetCode exercises `[LC]`
 

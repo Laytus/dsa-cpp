@@ -76,6 +76,8 @@ add_library(dsa_cpp
     src/algorithms/bellman_ford.cpp
     src/algorithms/dag_shortest_paths.cpp
     src/algorithms/dijkstra.cpp
+    src/algorithms/all_pair_shortest_paths.cpp
+    src/algorithms/johnson_apsp.cpp
 )
 
 target_include_directories(dsa_cpp
@@ -185,7 +187,9 @@ if(DSA_ENABLE_TESTS)
         # tests/data_structures/weighted_adjacency_list_graph_tests.cpp
         # tests/algorithms/bellman_ford_tests.cpp
         # tests/algorithms/dag_shortest_paths_tests.cpp
-        tests/algorithms/dijkstra_tests.cpp
+        # tests/algorithms/dijkstra_tests.cpp
+        # tests/algorithms/all_pair_shortest_paths_tests.cpp
+        tests/algorithms/johnson_apsp_tests.cpp
     )
 
     target_link_libraries(dsa_tests
