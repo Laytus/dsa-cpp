@@ -156,11 +156,11 @@ if(DSA_ENABLE_TESTS)
         tests/data_structures/linked_list_tests.cpp
         tests/data_structures/circular_linked_list_tests.cpp
         tests/data_structures/direct_access_table_tests.cpp
-        # tests/data_structures/static_hash_chained_table_tests.cpp
-        # tests/data_structures/universal_hash_chained_table_tests.cpp
-        # tests/data_structures/open_addressing_hash_table_tests.cpp
-        # tests/data_structures/max_priority_queue_tests.cpp
-        # tests/data_structures/min_priority_queue_tests.cpp
+        tests/data_structures/static_hash_chained_table_tests.cpp
+        tests/data_structures/universal_hash_chained_table_tests.cpp
+        tests/data_structures/open_addressing_hash_table_tests.cpp
+        tests/data_structures/max_priority_queue_tests.cpp
+        tests/data_structures/min_priority_queue_tests.cpp
         tests/algorithms/heap_sort_tests.cpp
         tests/algorithms/quick_sort_tests.cpp
         tests/algorithms/counting_sort_tests.cpp
@@ -173,7 +173,7 @@ if(DSA_ENABLE_TESTS)
         # tests/data_structures/red_black_tree_tests.cpp
         # tests/data_structures/order_statistic_tree_tests.cpp
         # tests/data_structures/interval_tree_tests.cpp
-        # tests/data_structures/disjoint_set_forest_tests.cpp
+        tests/data_structures/disjoint_set_forest_tests.cpp
         # tests/algorithms/matrix_chain_tests.cpp
         # tests/algorithms/longest_common_subsequence_tests.cpp
         # tests/algorithms/optimal_BST_tests.cpp
