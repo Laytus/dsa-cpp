@@ -174,10 +174,10 @@ if(DSA_ENABLE_TESTS)
         tests/data_structures/order_statistic_tree_tests.cpp
         tests/data_structures/interval_tree_tests.cpp
         tests/data_structures/disjoint_set_forest_tests.cpp
-        # tests/algorithms/matrix_chain_tests.cpp
-        # tests/algorithms/longest_common_subsequence_tests.cpp
-        # tests/algorithms/optimal_BST_tests.cpp
-        # tests/algorithms/huffman_codes_tests.cpp
+        tests/algorithms/matrix_chain_tests.cpp
+        tests/algorithms/longest_common_subsequence_tests.cpp
+        tests/algorithms/optimal_BST_tests.cpp
+        tests/algorithms/huffman_codes_tests.cpp
         # tests/algorithms/breadth_first_search_tests.cpp
         # tests/algorithms/depth_first_search_tests.cpp
         # tests/algorithms/topological_sort_tests.cpp
