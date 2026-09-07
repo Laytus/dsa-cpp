@@ -1,5 +1,7 @@
 #include "algorithms/counting_sort.hpp"
 
+#include <stdexcept>
+
 namespace {
 
 int digit_at(int value, int exponent) {

@@ -229,6 +229,8 @@ std::size_t StaticHashChainedTable::hash_function(std::size_t k) const {
         case HashFunctionType::MultiplyShift:
             return multiply_shift_hash(k);
     }
+
+    throw std::logic_error("Unknown hash function type");
 }
 
 }  // namespace dsa::data_structures
