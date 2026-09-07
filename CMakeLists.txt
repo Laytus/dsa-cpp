@@ -140,12 +140,12 @@ if(DSA_ENABLE_TESTS)
     FetchContent_MakeAvailable(Catch2)
 
     add_executable(dsa_tests
-        # tests/algorithms/insertion_sort_tests.cpp
-        # tests/algorithms/insertion_sort_array_tests.cpp
-        # tests/algorithms/insertion_sort_inv_tests.cpp
-        # tests/algorithms/linear_search_tests.cpp
-        # tests/algorithms/selection_sort_tests.cpp
-        # tests/algorithms/merge_sort_tests.cpp
+        tests/algorithms/insertion_sort_tests.cpp
+        tests/algorithms/insertion_sort_array_tests.cpp
+        tests/algorithms/insertion_sort_inv_tests.cpp
+        tests/algorithms/linear_search_tests.cpp
+        tests/algorithms/selection_sort_tests.cpp
+        tests/algorithms/merge_sort_tests.cpp
         # tests/algorithms/find_maximum_subarray_tests.cpp
         # tests/algorithms/find_maximum_subarray_brute_force_tests.cpp
         # tests/algorithms/square_matrix_multiply_tests.cpp
