@@ -183,12 +183,12 @@ if(DSA_ENABLE_TESTS)
         tests/algorithms/topological_sort_tests.cpp
         tests/algorithms/strongly_connected_components_tests.cpp
         tests/algorithms/minimum_spanning_tree_tests.cpp
-        # tests/algorithms/single_source_shortest_paths_tests.cpp
-        # tests/data_structures/weighted_adjacency_list_graph_tests.cpp
-        # tests/algorithms/bellman_ford_tests.cpp
-        # tests/algorithms/dag_shortest_paths_tests.cpp
-        # tests/algorithms/dijkstra_tests.cpp
-        # tests/algorithms/all_pair_shortest_paths_tests.cpp
+        tests/algorithms/single_source_shortest_paths_tests.cpp
+        tests/data_structures/weighted_adjacency_list_graph_tests.cpp
+        tests/algorithms/bellman_ford_tests.cpp
+        tests/algorithms/dag_shortest_paths_tests.cpp
+        tests/algorithms/dijkstra_tests.cpp
+        tests/algorithms/all_pair_shortest_paths_tests.cpp
         tests/algorithms/johnson_apsp_tests.cpp
     )
 
