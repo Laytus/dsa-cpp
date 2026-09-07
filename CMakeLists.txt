@@ -178,11 +178,11 @@ if(DSA_ENABLE_TESTS)
         tests/algorithms/longest_common_subsequence_tests.cpp
         tests/algorithms/optimal_BST_tests.cpp
         tests/algorithms/huffman_codes_tests.cpp
-        # tests/algorithms/breadth_first_search_tests.cpp
-        # tests/algorithms/depth_first_search_tests.cpp
-        # tests/algorithms/topological_sort_tests.cpp
-        # tests/algorithms/strongly_connected_components_tests.cpp
-        # tests/algorithms/minimum_spanning_tree_tests.cpp
+        tests/algorithms/breadth_first_search_tests.cpp
+        tests/algorithms/depth_first_search_tests.cpp
+        tests/algorithms/topological_sort_tests.cpp
+        tests/algorithms/strongly_connected_components_tests.cpp
+        tests/algorithms/minimum_spanning_tree_tests.cpp
         # tests/algorithms/single_source_shortest_paths_tests.cpp
         # tests/data_structures/weighted_adjacency_list_graph_tests.cpp
         # tests/algorithms/bellman_ford_tests.cpp
