@@ -2,6 +2,8 @@
 
 #include "algorithms/counting_sort.hpp"
 
+#include <stdexcept>
+
 namespace dsa::algorithms {
 
 void radix_sort(

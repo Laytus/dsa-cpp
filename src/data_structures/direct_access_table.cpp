@@ -85,11 +85,7 @@ void DirectAccessTable::direct_access_insert(Node* x) {
         throw std::invalid_argument("x cannot be a null pointer");
     }
     
-    if (x->key < 0) {
-        throw std::invalid_argument("Key cannot be negative");
-    }
-    
-    if (static_cast<std::size_t>(x->key) >= capacity_) {
+    if (x->key >= capacity_) {
         throw std::out_of_range("Key is outside the table range");
     }
 
@@ -99,10 +95,6 @@ void DirectAccessTable::direct_access_insert(Node* x) {
 void DirectAccessTable::direct_access_delete(Node* x) {
     if (x == nullptr) {
         throw std::invalid_argument("x cannot be a null pointer");
-    }
-
-    if (x->key < 0) {
-        throw std::invalid_argument("Key cannot be negative");
     }
     
     if (static_cast<std::size_t>(x->key) >= capacity_) {
