@@ -1,134 +1,347 @@
 # dsa-cpp
 
-**Data Structures & Algorithms in C++**  
-*A structured self-study repository by Heber Arteaga*
+[![CI](https://github.com/Laytus/dsa-cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/Laytus/dsa-cpp/actions/workflows/ci.yml)
 
----
+**Data structures and algorithms implemented from scratch in modern C++23, based primarily on CLRS and backed by an extensive automated test suite.**
 
-## Overview
+`dsa-cpp` is a C++ implementation project focused on algorithmic foundations, data-structure internals, correctness, and practical experimentation. The repository includes classic sorting and selection algorithms, custom containers and trees, dynamic programming, graph algorithms, shortest-path methods, and supporting experiments.
 
-This repository documents my systematic study of Data Structures and Algorithms in C++, with focus on implementing core CLRS algorithms and data structures from scratch in modern C++ and applying them to interview-style problems.
+## Highlights
 
-The goal is to combine rigorous theory with practical implementation: each concept studied is implemented, tested, and later applied to NeetCode-style problems and experiments.
+- Modern **C++23** implementation
+- Core algorithms and data structures implemented from scratch
+- **778 automated Catch2 test cases**
+- **6,522 assertions**
+- Individual test discovery through **CTest**
+- Automated **GitHub Actions CI**
+- Strict compiler-warning configuration
+- Selected benchmarks and comparisons with STL facilities
+- Theory and study notes based primarily on **CLRS**
 
----
+## Implemented algorithms and data structures
 
-## Study Plan
+### Sorting, searching, and selection
 
-The plan is organized in 4 phases, each building on the previous:
+- Insertion sort
+- Reverse insertion sort
+- Linear search
+- Selection sort
+- Merge sort
+- Heap sort
+- Quicksort and randomized quicksort
+- Counting sort
+- Radix sort
+- Bucket sort
+- Minimum / maximum selection
+- Randomized selection
+- Deterministic selection
 
-| Phase | Topics | Duration |
-|-------|--------|----------|
-| 1 | Complexity analysis, arrays, hash tables, linked lists, stacks, binary search, two pointers, sliding window, prefix sum | Weeks 1–4 |
-| 2 | Trees, heaps, graphs (BFS/DFS), BSTs, Union-Find, amortized analysis | Weeks 5–7 |
-| 3 | Sorting, dynamic programming, greedy algorithms, shortest paths, backtracking | Weeks 8–12 |
-| 4 | Interview preparation, mock interviews, problem review | Weeks 13–15 |
+### Divide and conquer and matrix algorithms
 
-Full plan with chapters, exercises, and support materials: [`dsa-study-plan.md`](notes/general/dsa-study-plan.md)
+- Maximum subarray
+  - divide-and-conquer implementation
+  - brute-force implementation
+- Square-matrix multiplication
+- Recursive matrix multiplication
+- Strassen matrix multiplication
 
----
+### Fundamental data structures
 
-## Resources
+- Stack
+- Queue
+- Linked list
+- Circular linked list
+- Direct-access table
+- Static chained hash table
+- Universal chained hash table
+- Open-addressing hash table
+- Max-priority queue
+- Min-priority queue
+- Disjoint-set forest / Union-Find
 
-**Primary theory:** [Introduction to Algorithms — CLRS (4th ed.)](https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/)  
-**Primary practice:** [Neetcode 150](https://neetcode.io/practice)  
-**Video support:** [MIT 6.006](https://www.youtube.com/playlist?list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY) · [NeetCode YouTube](https://www.youtube.com/@NeetCode) · [Aditya Verma — DP](https://www.youtube.com/playlist?list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go)  
-**Reference:** [The Algorithm Design Manual — Skiena](https://www.algorist.com)
+### Trees
 
----
+- Binary search tree
+- Red-black tree
+- Order-statistic tree
+- Interval tree
 
-## Repository Structure
+The tree implementations include operations such as insertion, deletion, search, predecessor/successor queries, copy/move behavior, and structure-specific invariants.
+
+### Dynamic programming and greedy algorithms
+
+- Matrix-chain multiplication
+- Longest common subsequence
+- Optimal binary search tree
+- Activity selection
+- Huffman coding
+- Dynamic alphabetic Huffman coding
+
+### Graph algorithms
+
+- Adjacency-list graph representation
+- Weighted adjacency-list graph representation
+- Breadth-first search
+- Depth-first search
+- Topological sort
+- Strongly connected components
+- Minimum spanning tree
+  - Kruskal
+  - Prim
+
+### Shortest paths and all-pairs algorithms
+
+- Single-source shortest-path utilities
+- Bellman-Ford
+- DAG shortest paths
+- Dijkstra
+- Slow all-pairs shortest paths
+- Faster all-pairs shortest paths
+- Floyd-Warshall
+- Floyd-Warshall with predecessor reconstruction
+- Transitive closure
+- Johnson's all-pairs shortest paths
+
+## Testing
+
+The repository uses **Catch2** for automated tests and **CTest** for discovery and execution.
+
+The current suite contains:
+
+```text
+778 test cases
+6,522 assertions
+```
+
+Coverage includes:
+
+- normal behavior
+- edge cases
+- invalid inputs and exceptions
+- copy and move semantics
+- data-structure invariants
+- graph reachability and path reconstruction
+- CLRS reference examples
+- alternative implementations of the same problem
+- agreement between related algorithms where appropriate
+
+CTest discovers each Catch2 test case individually.
+
+Run the complete suite with:
+
+```bash
+cmake -S . -B build \
+  -DDSA_ENABLE_TESTS=ON \
+  -DDSA_ENABLE_WARNINGS=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build --parallel
+
+ctest --test-dir build --output-on-failure --no-tests=error
+```
+
+List all discovered tests with:
+
+```bash
+ctest --test-dir build -N
+```
+
+The test executable can also be run directly:
+
+```bash
+./build/dsa_tests
+```
+
+## Continuous integration
+
+GitHub Actions automatically configures, builds, and tests the project on pushes and pull requests.
+
+The CI workflow currently uses:
+
+```text
+macOS
+C++23
+CMake
+Catch2
+CTest
+```
+
+The project intentionally uses modern C++23 language and standard-library features, so CI targets a current AppleClang/libc++ environment consistent with the primary development setup.
+
+## Build
+
+### Requirements
+
+- CMake 3.25+
+- A C++23 compiler and standard library supporting the features used by the project
+- Git, so CMake can fetch Catch2 when tests are enabled
+
+### Build without tests
+
+```bash
+cmake -S . -B build
+cmake --build build --parallel
+```
+
+Run the main executable:
+
+```bash
+./build/dsa_app
+```
+
+### Build with tests
+
+```bash
+cmake -S . -B build -DDSA_ENABLE_TESTS=ON
+cmake --build build --parallel
+ctest --test-dir build --output-on-failure --no-tests=error
+```
+
+Useful CMake options:
+
+```text
+DSA_ENABLE_TESTS      Build the Catch2 test suite
+DSA_ENABLE_WARNINGS   Enable the project's compiler-warning configuration
+```
+
+## Compiler warnings
+
+When enabled, the project uses a strict warning configuration.
+
+For Clang/GCC-style compilers:
+
+```text
+-Wall
+-Wextra
+-Wpedantic
+-Wconversion
+-Wsign-conversion
+-Wshadow
+```
+
+For MSVC:
+
+```text
+/W4
+/permissive-
+```
+
+These warnings are applied to the core `dsa_cpp` library.
+
+## Repository structure
 
 ```text
 dsa-cpp/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                 # Automated build and test workflow
+│
 ├── app/
-│   ├── main.cpp                 # General entry point
-│   ├── exercise_runner.cpp      # Sandbox for quick problem-solving experiments
-│   ├── experiment_runner.cpp    # Runs custom algorithm/data structure experiments
-│   └── problem_runner.cpp       # Runs selected NeetCode-style solutions
+│   ├── main.cpp                   # Main executable entry point
+│   └── experiment_runner.cpp      # Experiment runner
 │
 ├── include/
-│   ├── algorithms/              # Algorithm headers
-│   ├── data_structures/         # Data structure headers
-│   └── utils/                   # Shared utilities
+│   ├── algorithms/                # Public algorithm interfaces
+│   ├── data_structures/           # Public data-structure interfaces
+│   └── utils/                     # Shared utilities
 │
 ├── src/
-│   ├── algorithms/              # Algorithm implementations
-│   └── data_structures/         # Data structure implementations
+│   ├── algorithms/                # Algorithm implementations
+│   └── data_structures/           # Data-structure implementations
 │
 ├── tests/
-│   ├── algorithms/              # Unit tests for algorithms
-│   └── data_structures/         # Unit tests for data structures
+│   ├── algorithms/                # Catch2 algorithm tests
+│   └── data_structures/           # Catch2 data-structure tests
 │
-├── experiments/                 # Exploratory programs, STL comparisons, and benchmarks
-├── problems/                    # NeetCode / interview-style problems and notes
-├── theory/                      # Topic notes and patterns
+├── experiments/
+│   ├── algorithms/                # Algorithm benchmarks and comparisons
+│   └── data_structures/           # STL and custom-structure experiments
+│
+├── theory/                        # Supporting theory notes
 ├── notes/
 │   └── general/
-│       └── dsa-study-plan.md    # Main study plan
+│       └── dsa-study-plan.md      # Original study-plan reference
 │
 ├── CMakeLists.txt
 └── README.md
 ```
 
----
+## Experiments
 
-## Project Components
+The `experiments/` directory complements the correctness-oriented test suite with exploratory code.
 
-- `include/` and `src/` contain the core CLRS-style implementations.
-- `tests/` contains unit tests for correctness.
-- `experiments/` contains exploratory programs used to compare custom implementations with STL containers or benchmark behavior.
-- `problems/` contains NeetCode-style solutions and notes.
-- `theory/` contains topic notes and reusable problem-solving patterns.
-- `app/` contains runner files used to execute experiments, problems, or sandbox code.
+Examples include:
 
----
+- maximum-subarray benchmarking
+- custom hash-table comparisons with STL hash containers
+- custom priority-queue comparisons with STL facilities
+- tree-related STL examples
+- activity-selection comparisons
+- Huffman-coding comparisons
 
-## Build and Test
+Build the repository and run:
 
 ```bash
-cmake -S . -B build -DDSA_ENABLE_TESTS=ON
-cmake --build build
-ctest --test-dir build --output-on-failure
+./build/dsa_experiments
 ```
 
----
+The experiments are intentionally separate from automated correctness tests.
 
-## Runners
+## Implementation approach
 
-- `main.cpp`: general executable entry point.
-- `exercise_runner.cpp`: sandbox for quickly testing ideas and problem-solving snippets.
-- `experiment_runner.cpp`: runs experiment files from `experiments/`.
-- `problem_runner.cpp`: runs selected NeetCode-style solutions from `problems/`.
+The repository follows a few consistent principles:
 
----
+1. **Implement fundamentals explicitly.**
+   Core algorithms and data structures are implemented directly rather than replaced by STL equivalents.
 
-## Implementation Philosophy
+2. **Stay close to the underlying algorithms.**
+   CLRS pseudocode and invariants are preserved where useful, while adapting implementations to modern C++.
 
-- Implement core algorithms and data structures from scratch before relying on STL equivalents.
-- Keep implementations close to CLRS pseudocode when useful, while writing idiomatic modern C++.
-- Write tests for each implementation.
-- Use experiments to compare custom implementations with STL behavior or to benchmark performance.
-- Prioritize correctness and clarity before optimization.
+3. **Test behavior extensively.**
+   Automated tests cover both expected behavior and important edge cases.
 
----
+4. **Separate reusable code from experiments.**
+   Core implementations live under `include/` and `src/`; exploratory comparisons and benchmarks live under `experiments/`.
 
-## Problem Notes Format
+5. **Prioritize correctness and clarity.**
+   The project is designed as an algorithmic implementation and learning/reference repository rather than as a production container library.
 
-Each problem in `problems/` can include a `.cpp` solution and a `.md` file documenting the approach, time complexity, space complexity, and pattern used.
+## Theory and references
 
-```markdown
-## Problem Name
+The implementation work is based primarily on:
 
-**Approach:** brief description of the strategy used  
-**Time complexity:** O(...)  
-**Space complexity:** O(...)  
-**Pattern:** e.g. Two Pointers / Sliding Window / BFS / DP  
-**Difficulty:** Easy / Medium / Hard
-```
+- *Introduction to Algorithms* (CLRS), 4th edition
+- MIT 6.006 material
+- selected supplementary algorithm references
 
----
+The `theory/` and `notes/` directories preserve supporting notes from the original study process. They are supplementary to the C++ implementation and automated test suite.
 
-## Background
+## Scope
 
-This repository is part of my preparation for software engineering and quant developer roles, with an emphasis on rigorous algorithmic foundations, modern C++, and interview problem solving.
+This repository is intended to demonstrate and reinforce:
+
+- algorithmic reasoning
+- data-structure implementation
+- modern C++
+- memory and ownership behavior
+- complexity-aware design
+- graph and dynamic-programming fundamentals
+- automated correctness testing
+
+It is **not** intended to replace the C++ Standard Library or provide production-ready general-purpose containers.
+
+## Status
+
+The core implementation and automated-test suite are stable.
+
+Current repository-quality infrastructure includes:
+
+- CMake-based builds
+- C++23 configuration
+- strict compiler warnings
+- Catch2
+- CTest test discovery
+- 778 automated tests
+- GitHub Actions CI
+
+Future changes are expected to focus on maintenance, corrections, or selective additions rather than broad expansion of the repository's scope.
