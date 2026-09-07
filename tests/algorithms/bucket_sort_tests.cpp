@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
-TEST_CASE("bucketsort double sorts CLRS-style values in [0, 1)") {
+TEST_CASE("bucketsort double sorts CLRS-style values in range 0 <= x < 1") {
     std::vector<double> values{
         0.78, 0.17, 0.39, 0.26, 0.72,
         0.94, 0.21, 0.12, 0.23, 0.68
@@ -112,7 +112,7 @@ TEST_CASE("bucketsort double throws for value greater than one") {
     );
 }
 
-TEST_CASE("bucketsort int sorts values in [0, 100)") {
+TEST_CASE("bucketsort int sorts values in range 0 <= x < 100") {
     std::vector<int> values{78, 17, 39, 26, 72, 94, 21, 12, 23, 68};
 
     const std::vector<int> sorted = dsa::algorithms::bucketsort(values);

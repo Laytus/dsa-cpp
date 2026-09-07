@@ -198,11 +198,10 @@ if(DSA_ENABLE_TESTS)
             Catch2::Catch2WithMain
     )
 
-    # include(CTest)
-    # include(Catch)
+    list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+    include(Catch)
 
-    # catch_discover_tests(dsa_tests)
-    add_test(NAME dsa_tests COMMAND dsa_tests)
+    catch_discover_tests(dsa_tests)
 endif()
 
 # ------------------------------------------------------------
