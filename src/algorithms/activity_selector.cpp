@@ -55,7 +55,14 @@ std::vector<Activity> recursive_activity_selector(
     
     if (m < n) {
         std::vector<Activity> activities {Activity{s[m], f[m]}};
-        activities.append_range(recursive_activity_selector(s, f, m));
+
+        auto remaining = recursive_activity_selector(s, f, m);
+        activities.insert(
+            activities.end(),
+            remaining.begin(),
+            remaining.end()
+        );
+
         return activities;
     }
     
