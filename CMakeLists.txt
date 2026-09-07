@@ -169,10 +169,10 @@ if(DSA_ENABLE_TESTS)
         tests/algorithms/minimum_maximum_tests.cpp
         tests/algorithms/randomized_select_tests.cpp
         tests/algorithms/select_tests.cpp
-        # tests/data_structures/binary_search_tree_tests.cpp
-        # tests/data_structures/red_black_tree_tests.cpp
-        # tests/data_structures/order_statistic_tree_tests.cpp
-        # tests/data_structures/interval_tree_tests.cpp
+        tests/data_structures/binary_search_tree_tests.cpp
+        tests/data_structures/red_black_tree_tests.cpp
+        tests/data_structures/order_statistic_tree_tests.cpp
+        tests/data_structures/interval_tree_tests.cpp
         tests/data_structures/disjoint_set_forest_tests.cpp
         # tests/algorithms/matrix_chain_tests.cpp
         # tests/algorithms/longest_common_subsequence_tests.cpp
