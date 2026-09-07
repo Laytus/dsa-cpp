@@ -223,33 +223,3 @@ target_link_libraries(dsa_experiments
     PRIVATE
         dsa_cpp
 )
-
-# ------------------------------------------------------------
-# Problems
-# ------------------------------------------------------------
-
-add_executable(dsa_problems
-    app/problem_runner.cpp
-    problems/arrays_and_hashing/1.contains_duplicate/solution.cpp
-    # problems/arrays_and_hashing/2.valid_anagram/solution.cpp
-    # problems/arrays_and_hashing/3.two_sums/solution.cpp
-    # problems/arrays_and_hashing/4.group_anagrams/solution.cpp
-)
-
-target_link_libraries(dsa_problems
-    PRIVATE
-        dsa_cpp
-)
-
-# ------------------------------------------------------------
-# Exercises
-# ------------------------------------------------------------
-
-add_executable(dsa_exercises
-    app/exercise_runner.cpp
-)
-
-target_link_libraries(dsa_exercises
-    PRIVATE
-        dsa_cpp
-)
